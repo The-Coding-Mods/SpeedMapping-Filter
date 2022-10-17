@@ -1,0 +1,91 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "GbxTest/1.0.0": {
+        "dependencies": {
+          "GBX.NET": "1.0.1",
+          "GBX.NET.LZO": "1.0.2"
+        },
+        "runtime": {
+          "GbxTest.dll": {}
+        }
+      },
+      "GBX.NET/1.0.1": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.1",
+          "TmEssentials": "2.3.1"
+        },
+        "runtime": {
+          "lib/net6.0/GBX.NET.dll": {
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
+          }
+        }
+      },
+      "GBX.NET.LZO/1.0.2": {
+        "runtime": {
+          "lib/net6.0/GBX.NET.LZO.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/6.0.1": {
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.322.12309"
+          }
+        }
+      },
+      "TmEssentials/2.3.1": {
+        "runtime": {
+          "lib/net6.0/TmEssentials.dll": {
+            "assemblyVersion": "2.3.1.0",
+            "fileVersion": "2.3.1.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GbxTest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GBX.NET/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z7TR/c4Bj8nQHOlazYiiLngAWU/SX7sNrttgJ2YzfQAAl/iWeWLRyagPfOHcIUlw39+5jWgZxyeLQurRrRxOrQ==",
+      "path": "gbx.net/1.0.1",
+      "hashPath": "gbx.net.1.0.1.nupkg.sha512"
+    },
+    "GBX.NET.LZO/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q4HJwGtnKwAtv9Uioxs6yshhNKV1VpqUbvjh7+tIcyCwVHzvCH3QUTRXrOdUY6oEgdgzl9+L4KrELl7kj8q5YQ==",
+      "path": "gbx.net.lzo/1.0.2",
+      "hashPath": "gbx.net.lzo.1.0.2.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dzB2Cgg+JmrouhjkcQGzSFjjvpwlq353i8oBQO2GWNjCXSzhbtBRUf28HSauWe7eib3wYOdb3tItdjRwAdwCSg==",
+      "path": "microsoft.extensions.logging.abstractions/6.0.1",
+      "hashPath": "microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512"
+    },
+    "TmEssentials/2.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/GI2MoeBuc/XJMwmWKWfrEs+DF/uPLBnTRvZZpZRGVzTmYsh9cIDv+aex7//LmGCeXelhhlEZtx5ibCv7KghBQ==",
+      "path": "tmessentials/2.3.1",
+      "hashPath": "tmessentials.2.3.1.nupkg.sha512"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "p/wrNPgwBGwoLoFRRcR3SBKXd3Dmfe8+0kYE8S2B4drx328dmEsDRR1sLXHwovAFlT7N96yVBcK6uXzCLAXUyg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\valbj\\source\\repos\\GbxTest\\GbxTest\\GbxTest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\valbj\\.nuget\\packages\\gbx.net\\1.0.1\\gbx.net.1.0.1.nupkg.sha512",
+    "C:\\Users\\valbj\\.nuget\\packages\\gbx.net.lzo\\1.0.2\\gbx.net.lzo.1.0.2.nupkg.sha512",
+    "C:\\Users\\valbj\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.1\\microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512",
+    "C:\\Users\\valbj\\.nuget\\packages\\tmessentials\\2.3.1\\tmessentials.2.3.1.nupkg.sha512"
+  ],
+  "logs": []
+}
