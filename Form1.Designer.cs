@@ -38,6 +38,7 @@
             this.chkIgnoreTemplate = new System.Windows.Forms.CheckBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.txtEndCoords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.grpGeneral.SuspendLayout();
@@ -193,6 +193,16 @@
             this.grpGeneral.TabIndex = 7;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Location = new System.Drawing.Point(15, 169);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(117, 19);
+            this.checkBox16.TabIndex = 13;
+            this.checkBox16.Text = "Disallow multilap";
+            this.checkBox16.UseVisualStyleBackColor = true;
             // 
             // txtEndCoords
             // 
@@ -445,7 +455,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(545, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(552, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -469,21 +479,11 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // checkBox16
-            // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(15, 169);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(117, 19);
-            this.checkBox16.TabIndex = 13;
-            this.checkBox16.Text = "Disallow multilap";
-            this.checkBox16.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 638);
+            this.ClientSize = new System.Drawing.Size(552, 643);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

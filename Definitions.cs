@@ -22,9 +22,19 @@ namespace GbxTest
         GREATERTHAN = 2
     }
 
-
+    /// <summary>
+    /// Rule set for a TMMapTemplate to obey. 
+    /// </summary>
     public class TMMapRules
     {
+        /// <summary>
+        /// It is expected that a rule that isn't enforced is set to null
+        /// </summary>
+        /// <param name="forceStart"></param>
+        /// <param name="forceFinish"></param>
+        /// <param name="forceCheckpointCount"></param>
+        /// <param name="forceMultiLap"></param>
+        /// <param name="forceAuthorTime"></param>
         public TMMapRules(Tuple<Int3, Direction>? forceStart, Tuple<Int3, Direction>? forceFinish, Tuple<EqMode, int>? forceCheckpointCount, 
             int? forceMultiLap, Tuple<EqMode, TimeInt32>? forceAuthorTime)
         {
@@ -69,9 +79,9 @@ namespace GbxTest
             return _challenge?.Blocks?.FirstOrDefault(b => b.Name.ToLower().Contains(mode.ToString().ToLower()));
         }
 
-        public bool Obeys(TMMapRules rules) // Free blocks have coords <-1,-1,-1>
+        public bool Obeys(TMMapRules rules)
         {
-            if(rules.ForceStart != null)
+            if (rules.ForceStart != null)
             {
                 var (rules_coord, rules_direction) = rules.ForceStart;
                 if (rules_coord != Start.Coord || rules_direction != Start.Direction)
@@ -101,6 +111,30 @@ namespace GbxTest
                         break;
                 }
             }
+
+            if (rules.ForceAuthorTime != null)
+            {
+                var (rules_eq, rules_author) = rules.ForceAuthorTime;
+                switch(rules_eq)
+                {
+                    case EqMode.LESSTHAN:
+                        if (rules_author >= AuthorTime) return false;
+                        break;
+                    case EqMode.EQUALTO: //Don't see a use case for this but 
+                        if (rules_author != AuthorTime) return false;
+                        break;
+                    case EqMode.GREATERTHAN:
+                        if (rules_author <= AuthorTime) return false;
+                        break;
+                }
+            }
+
+            if (rules.ForceMultiLap != null)
+            {
+                if (IsMultiLap == null || IsMultiLap == false) return false;
+                if (LapCount != rules.ForceMultiLap) return false;
+            }
+
             return true;
         }
     }

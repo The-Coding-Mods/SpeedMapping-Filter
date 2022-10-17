@@ -1,6 +1,7 @@
 
 using GBX.NET.Engines.Game;
 using GBX.NET;
+using TmEssentials;
 
 namespace GbxTest
 {
@@ -29,11 +30,7 @@ namespace GbxTest
 
             TMMapTemplate template2 = new(map2);
 
-            TMMapRules rules = new(new Tuple<Int3, Direction>(template.Start.Coord, template.Start.Direction),
-                null, 
-                new Tuple<EqMode, int>(EqMode.LESSTHAN, 2), 
-                null, 
-                null);
+            TMMapRules rules = new(null, null, null, null, new Tuple<EqMode, TimeInt32>(EqMode.LESSTHAN, TimeInt32.MaxValue));
 
             bool val = template2.Obeys(rules);
             return map.Blocks.First(e => e.Name.ToLower().Contains("start")).Coord;
