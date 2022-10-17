@@ -69,7 +69,7 @@ namespace GbxTest
             return _challenge?.Blocks?.FirstOrDefault(b => b.Name.ToLower().Contains(mode.ToString().ToLower()));
         }
 
-        public bool Obeys(TMMapRules rules) 
+        public bool Obeys(TMMapRules rules) // Free blocks have coords <-1,-1,-1>
         {
             if(rules.ForceStart != null)
             {
