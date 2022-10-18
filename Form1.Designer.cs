@@ -38,19 +38,20 @@
             this.chkIgnoreTemplate = new System.Windows.Forms.CheckBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chkMultilap = new System.Windows.Forms.CheckBox();
             this.txtEndCoords = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtStartCoords = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txtAuthorTime = new System.Windows.Forms.TextBox();
+            this.cmbEqAuthor = new System.Windows.Forms.ComboBox();
+            this.chkAuthorTime = new System.Windows.Forms.CheckBox();
+            this.chkCheckpoint = new System.Windows.Forms.CheckBox();
+            this.chkStart = new System.Windows.Forms.CheckBox();
+            this.numCheckpoint = new System.Windows.Forms.NumericUpDown();
+            this.chkFinish = new System.Windows.Forms.CheckBox();
+            this.cmbEqCheckpoint = new System.Windows.Forms.ComboBox();
             this.grpBlock = new System.Windows.Forms.GroupBox();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.checkBox13 = new System.Windows.Forms.CheckBox();
@@ -69,7 +70,7 @@
             this.groupBox1.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.grpGeneral.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCheckpoint)).BeginInit();
             this.grpBlock.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -173,20 +174,20 @@
             // 
             // grpGeneral
             // 
-            this.grpGeneral.Controls.Add(this.checkBox16);
+            this.grpGeneral.Controls.Add(this.label3);
+            this.grpGeneral.Controls.Add(this.chkMultilap);
             this.grpGeneral.Controls.Add(this.txtEndCoords);
             this.grpGeneral.Controls.Add(this.label2);
             this.grpGeneral.Controls.Add(this.label1);
             this.grpGeneral.Controls.Add(this.txtStartCoords);
-            this.grpGeneral.Controls.Add(this.textBox1);
-            this.grpGeneral.Controls.Add(this.comboBox2);
-            this.grpGeneral.Controls.Add(this.checkBox4);
-            this.grpGeneral.Controls.Add(this.checkBox3);
-            this.grpGeneral.Controls.Add(this.checkBox1);
-            this.grpGeneral.Controls.Add(this.numericUpDown1);
-            this.grpGeneral.Controls.Add(this.checkBox2);
-            this.grpGeneral.Controls.Add(this.comboBox1);
-            this.grpGeneral.Enabled = false;
+            this.grpGeneral.Controls.Add(this.txtAuthorTime);
+            this.grpGeneral.Controls.Add(this.cmbEqAuthor);
+            this.grpGeneral.Controls.Add(this.chkAuthorTime);
+            this.grpGeneral.Controls.Add(this.chkCheckpoint);
+            this.grpGeneral.Controls.Add(this.chkStart);
+            this.grpGeneral.Controls.Add(this.numCheckpoint);
+            this.grpGeneral.Controls.Add(this.chkFinish);
+            this.grpGeneral.Controls.Add(this.cmbEqCheckpoint);
             this.grpGeneral.Location = new System.Drawing.Point(25, 70);
             this.grpGeneral.Name = "grpGeneral";
             this.grpGeneral.Size = new System.Drawing.Size(444, 194);
@@ -194,15 +195,24 @@
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
             // 
-            // checkBox16
+            // label3
             // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(15, 169);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(117, 19);
-            this.checkBox16.TabIndex = 13;
-            this.checkBox16.Text = "Disallow multilap";
-            this.checkBox16.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(333, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 15);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "milliseconds";
+            // 
+            // chkMultilap
+            // 
+            this.chkMultilap.AutoSize = true;
+            this.chkMultilap.Location = new System.Drawing.Point(15, 169);
+            this.chkMultilap.Name = "chkMultilap";
+            this.chkMultilap.Size = new System.Drawing.Size(117, 19);
+            this.chkMultilap.TabIndex = 13;
+            this.chkMultilap.Text = "Disallow multilap";
+            this.chkMultilap.UseVisualStyleBackColor = true;
             // 
             // txtEndCoords
             // 
@@ -240,93 +250,94 @@
             this.txtStartCoords.Text = "0,0,0";
             this.txtStartCoords.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox1
+            // txtAuthorTime
             // 
-            this.textBox1.Location = new System.Drawing.Point(281, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(46, 23);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "1:00";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAuthorTime.Location = new System.Drawing.Point(281, 66);
+            this.txtAuthorTime.Name = "txtAuthorTime";
+            this.txtAuthorTime.Size = new System.Drawing.Size(46, 23);
+            this.txtAuthorTime.TabIndex = 8;
+            this.txtAuthorTime.Text = "15000";
+            this.txtAuthorTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAuthorTime.TextChanged += new System.EventHandler(this.txtAuthorTime_TextChanged);
             // 
-            // comboBox2
+            // cmbEqAuthor
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Equal to",
-            "Greater than",
-            "Less than"});
-            this.comboBox2.Location = new System.Drawing.Point(142, 64);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 23);
-            this.comboBox2.TabIndex = 7;
-            this.comboBox2.Text = "Less than";
+            this.cmbEqAuthor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEqAuthor.FormattingEnabled = true;
+            this.cmbEqAuthor.Location = new System.Drawing.Point(142, 64);
+            this.cmbEqAuthor.Name = "cmbEqAuthor";
+            this.cmbEqAuthor.Size = new System.Drawing.Size(121, 23);
+            this.cmbEqAuthor.TabIndex = 7;
             // 
-            // checkBox4
+            // chkAuthorTime
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(15, 68);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(90, 19);
-            this.checkBox4.TabIndex = 6;
-            this.checkBox4.Text = "Author time";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.chkAuthorTime.AutoSize = true;
+            this.chkAuthorTime.Location = new System.Drawing.Point(15, 68);
+            this.chkAuthorTime.Name = "chkAuthorTime";
+            this.chkAuthorTime.Size = new System.Drawing.Size(90, 19);
+            this.chkAuthorTime.TabIndex = 6;
+            this.chkAuthorTime.Text = "Author time";
+            this.chkAuthorTime.UseVisualStyleBackColor = true;
+            this.chkAuthorTime.CheckedChanged += new System.EventHandler(this.chkAuthorTime_CheckedChanged);
             // 
-            // checkBox3
+            // chkCheckpoint
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(15, 32);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(121, 19);
-            this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = "Checkpoint count";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.chkCheckpoint.AutoSize = true;
+            this.chkCheckpoint.Location = new System.Drawing.Point(15, 32);
+            this.chkCheckpoint.Name = "chkCheckpoint";
+            this.chkCheckpoint.Size = new System.Drawing.Size(121, 19);
+            this.chkCheckpoint.TabIndex = 3;
+            this.chkCheckpoint.Text = "Checkpoint count";
+            this.chkCheckpoint.UseVisualStyleBackColor = true;
+            this.chkCheckpoint.CheckedChanged += new System.EventHandler(this.chkCheckpoint_CheckedChanged);
             // 
-            // checkBox1
+            // chkStart
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 103);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(97, 19);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Identical start";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkStart.AutoSize = true;
+            this.chkStart.Location = new System.Drawing.Point(15, 103);
+            this.chkStart.Name = "chkStart";
+            this.chkStart.Size = new System.Drawing.Size(97, 19);
+            this.chkStart.TabIndex = 1;
+            this.chkStart.Text = "Identical start";
+            this.chkStart.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // numCheckpoint
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(281, 33);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(46, 23);
-            this.numericUpDown1.TabIndex = 5;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.numCheckpoint.Location = new System.Drawing.Point(281, 33);
+            this.numCheckpoint.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numCheckpoint.Name = "numCheckpoint";
+            this.numCheckpoint.Size = new System.Drawing.Size(46, 23);
+            this.numCheckpoint.TabIndex = 5;
+            this.numCheckpoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numCheckpoint.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // checkBox2
+            // chkFinish
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(15, 139);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(94, 19);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Identical end";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkFinish.AutoSize = true;
+            this.chkFinish.Location = new System.Drawing.Point(15, 139);
+            this.chkFinish.Name = "chkFinish";
+            this.chkFinish.Size = new System.Drawing.Size(103, 19);
+            this.chkFinish.TabIndex = 2;
+            this.chkFinish.Text = "Identical finish";
+            this.chkFinish.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cmbEqCheckpoint
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Equal to",
-            "Greater than",
-            "Less than"});
-            this.comboBox1.Location = new System.Drawing.Point(142, 32);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 4;
-            this.comboBox1.Text = "Equal to";
+            this.cmbEqCheckpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEqCheckpoint.FormattingEnabled = true;
+            this.cmbEqCheckpoint.Location = new System.Drawing.Point(142, 32);
+            this.cmbEqCheckpoint.Name = "cmbEqCheckpoint";
+            this.cmbEqCheckpoint.Size = new System.Drawing.Size(121, 23);
+            this.cmbEqCheckpoint.TabIndex = 4;
+            this.cmbEqCheckpoint.SelectedIndexChanged += new System.EventHandler(this.cmbEqCheckpoint_SelectedIndexChanged);
             // 
             // grpBlock
             // 
@@ -340,7 +351,6 @@
             this.grpBlock.Controls.Add(this.checkBox7);
             this.grpBlock.Controls.Add(this.checkBox6);
             this.grpBlock.Controls.Add(this.checkBox5);
-            this.grpBlock.Enabled = false;
             this.grpBlock.Location = new System.Drawing.Point(24, 286);
             this.grpBlock.Name = "grpBlock";
             this.grpBlock.Size = new System.Drawing.Size(444, 164);
@@ -455,7 +465,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(552, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(542, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -483,7 +493,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 643);
+            this.ClientSize = new System.Drawing.Size(542, 643);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -499,7 +509,7 @@
             this.grpFilter.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCheckpoint)).EndInit();
             this.grpBlock.ResumeLayout(false);
             this.grpBlock.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -516,20 +526,20 @@
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private Button button1;
-        private NumericUpDown numericUpDown1;
-        private ComboBox comboBox1;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private NumericUpDown numCheckpoint;
+        private ComboBox cmbEqCheckpoint;
+        private CheckBox chkCheckpoint;
+        private CheckBox chkFinish;
+        private CheckBox chkStart;
         private GroupBox grpGeneral;
         private Button btnTemplate;
         private TextBox txtEndCoords;
         private Label label2;
         private Label label1;
         private TextBox txtStartCoords;
-        private TextBox textBox1;
-        private ComboBox comboBox2;
-        private CheckBox checkBox4;
+        private TextBox txtAuthorTime;
+        private ComboBox cmbEqAuthor;
+        private CheckBox chkAuthorTime;
         private GroupBox grpBlock;
         private CheckBox checkBox14;
         private CheckBox checkBox13;
@@ -548,6 +558,7 @@
         private CheckBox checkBox15;
         private CheckBox chkIgnoreTemplate;
         private GroupBox grpFilter;
-        private CheckBox checkBox16;
+        private CheckBox chkMultilap;
+        private Label label3;
     }
 }

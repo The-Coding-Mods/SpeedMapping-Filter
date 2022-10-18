@@ -17,9 +17,11 @@ namespace GbxTest
 
     public enum EqMode
     {
-        LESSTHAN = 0,
-        EQUALTO = 1,
-        GREATERTHAN = 2
+        LESS_THAN = 0,
+        LESS_OR_EQUAL = 1,
+        EQUAL_TO = 2,
+        GREATER_THAN = 3,
+        GREATER_OR_EQUAL = 4
     }
 
     /// <summary>
@@ -100,13 +102,19 @@ namespace GbxTest
                 var (rules_eq, rules_cpcount) = rules.ForceCheckpointCount;
                 switch(rules_eq)
                 {
-                    case EqMode.LESSTHAN:
+                    case EqMode.LESS_THAN:
+                        if (CheckpointNum > rules_cpcount) return false;
+                        break;
+                    case EqMode.LESS_OR_EQUAL:
                         if (CheckpointNum >= rules_cpcount) return false;
                         break;
-                    case EqMode.EQUALTO:
+                    case EqMode.EQUAL_TO:
                         if (CheckpointNum != rules_cpcount) return false;
                         break;
-                    case EqMode.GREATERTHAN:
+                    case EqMode.GREATER_THAN:
+                        if (CheckpointNum < rules_cpcount) return false;
+                        break;
+                    case EqMode.GREATER_OR_EQUAL:
                         if (CheckpointNum <= rules_cpcount) return false;
                         break;
                 }
@@ -117,13 +125,19 @@ namespace GbxTest
                 var (rules_eq, rules_author) = rules.ForceAuthorTime;
                 switch(rules_eq)
                 {
-                    case EqMode.LESSTHAN:
+                    case EqMode.LESS_THAN:
+                        if (rules_author > AuthorTime) return false;
+                        break;
+                    case EqMode.LESS_OR_EQUAL:
                         if (rules_author >= AuthorTime) return false;
                         break;
-                    case EqMode.EQUALTO: //Don't see a use case for this but 
+                    case EqMode.EQUAL_TO: //Don't see a use case for this but 
                         if (rules_author != AuthorTime) return false;
                         break;
-                    case EqMode.GREATERTHAN:
+                    case EqMode.GREATER_THAN:
+                        if (rules_author < AuthorTime) return false;
+                        break;
+                    case EqMode.GREATER_OR_EQUAL:
                         if (rules_author <= AuthorTime) return false;
                         break;
                 }
