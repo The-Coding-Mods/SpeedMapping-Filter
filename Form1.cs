@@ -2,19 +2,23 @@
 using GBX.NET;
 using GBX.NET.Engines.Game;
 using TmEssentials;
+
 using AuthorState = System.Tuple<GbxTest.EqMode, TmEssentials.TimeInt32>;
 using CheckpointState = System.Tuple<GbxTest.EqMode, int>;
 using StatusMessage = System.Tuple<bool, string>;
+using BlockState = System.Tuple<GbxTest.EqMode, GBX.NET.Int3>;
+using MultilapState = System.Int32;
 
 namespace GbxTest
 {
     public partial class Form1 : Form
     {
-        TMMapRules globalRule;
+        private static readonly StatusMessage MESSAGE_DEFAULT = new StatusMessage(true, "");
+        private static readonly StatusMessage MESSAGE_GENERIC_ERROR = new StatusMessage(false, "An error occured");
+        private static readonly StatusMessage MESSAGE_GENERIC_SUCCESS = new StatusMessage(true, "Success");
         public Form1()
         {
             InitializeComponent();
-            globalRule = new(null, null, null, null, null);
             cmbEqCheckpoint.DataSource = Enum.GetValues(typeof(EqMode));
             cmbEqAuthor.DataSource = Enum.GetValues(typeof(EqMode));
         }
@@ -37,7 +41,7 @@ namespace GbxTest
 
             TMMapTemplate template2 = new(map2);
 
-            TMMapRules rules = new(null, null, null, null, new Tuple<EqMode, TimeInt32>(EqMode.LESS_THAN, TimeInt32.MaxValue));
+            TMMapRules rules = new(null, null, null, null, new AuthorState(EqMode.LESS_THAN, TimeInt32.MaxValue));
 
             bool val = template2.Obeys(rules);
             return map.Blocks.First(e => e.Name.ToLower().Contains("start")).Coord;
@@ -45,7 +49,7 @@ namespace GbxTest
 
         private TMMapRules? CreateRules()
         {
-            Tuple<CheckpointState?, StatusMessage> cp = GetCheckpointState();
+            var cp = GetCheckpointState();
             (CheckpointState? cpState, StatusMessage cpStatus) = cp;
             if (cpState != null)
             {
@@ -53,9 +57,9 @@ namespace GbxTest
                 if (!cpStatusSuccess) { MessageBox.Show("Error", cpStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
             }
 
-            Tuple<AuthorState?, StatusMessage> author = GetAuthorTimeState();
+            var author = GetAuthorTimeState();
             (AuthorState? authorState, StatusMessage authorMessage) = author;
-            if(authorState != null)
+            if (authorState != null)
             {
                 var (authorStatusSuccess, authorStatusMessage) = authorMessage;
                 if (!authorStatusSuccess) { MessageBox.Show("Error", authorStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
@@ -67,23 +71,23 @@ namespace GbxTest
 
         private Tuple<CheckpointState?, StatusMessage> GetCheckpointState()
         {
-            Tuple<CheckpointState?, StatusMessage> cp = new(null, new StatusMessage(true, ""));
+            Tuple<CheckpointState?, StatusMessage> cp = new(null, MESSAGE_DEFAULT);
             if (chkCheckpoint.Checked)
             {
                 EqMode eqMode = (EqMode)cmbEqCheckpoint.SelectedItem;
                 int cpCount = (int)numCheckpoint.Value;
-                cp = new Tuple<CheckpointState?, StatusMessage>(new CheckpointState(eqMode, cpCount), new StatusMessage(true, "Success"));
+                cp = new Tuple<CheckpointState?, StatusMessage>(new CheckpointState(eqMode, cpCount), MESSAGE_GENERIC_SUCCESS);
             }
             return cp;
         }
 
         private Tuple<AuthorState?, StatusMessage> GetAuthorTimeState()
         {
-            Tuple<AuthorState?, StatusMessage> authorTime = null;
+            Tuple<AuthorState?, StatusMessage> authorTime = new(null, MESSAGE_DEFAULT);
             if (chkAuthorTime.Checked)
             {
                 EqMode eqMode = (EqMode)cmbEqAuthor.SelectedItem;
-                TimeInt32 time = new TimeInt32(TotalMilliseconds: 1000);
+                TimeInt32 time = new (TotalMilliseconds: 1000);
                 try
                 {
                     time = new TimeInt32(Convert.ToInt32(txtAuthorTime.Text));
@@ -92,7 +96,7 @@ namespace GbxTest
                 {
                     return new Tuple<AuthorState?, StatusMessage>(null, new StatusMessage(false, "Invalid time"));
                 }
-                authorTime = new Tuple<AuthorState?, StatusMessage>(new AuthorState(eqMode, time), new StatusMessage(false, "Invalid time"));
+                authorTime = new Tuple<AuthorState?, StatusMessage>(new AuthorState(eqMode, time), MESSAGE_GENERIC_SUCCESS);
             }
             return authorTime;
         }
