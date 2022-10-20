@@ -2,16 +2,18 @@
 {
     public enum BlockMode
     {
-        START = 0,
-        FINISH = 1
+        START,
+        MULTISTART,
+        FINISH,
+        CHECKPOINT
     }
 
     public enum EqMode
     {
-        LESS_THAN = 0,
-        LESS_OR_EQUAL = 1,
-        EQUAL_TO = 2,
-        GREATER_THAN = 3,
-        GREATER_OR_EQUAL = 4
+        LESS_THAN,
+        LESS_OR_EQUAL,
+        EQUAL_TO,
+        GREATER_THAN,
+        GREATER_OR_EQUAL
     }
 }

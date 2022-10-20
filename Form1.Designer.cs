@@ -38,6 +38,7 @@
             this.chkIgnoreTemplate = new System.Windows.Forms.CheckBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
+            this.cmbStartDirection = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chkMultilap = new System.Windows.Forms.CheckBox();
             this.txtEndCoords = new System.Windows.Forms.TextBox();
@@ -84,7 +85,7 @@
             this.groupBox1.Controls.Add(this.grpBlock);
             this.groupBox1.Location = new System.Drawing.Point(28, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(493, 592);
+            this.groupBox1.Size = new System.Drawing.Size(493, 646);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ruleset";
@@ -97,7 +98,7 @@
             this.grpFilter.Controls.Add(this.button1);
             this.grpFilter.Controls.Add(this.comboBox3);
             this.grpFilter.Enabled = false;
-            this.grpFilter.Location = new System.Drawing.Point(25, 456);
+            this.grpFilter.Location = new System.Drawing.Point(26, 505);
             this.grpFilter.Name = "grpFilter";
             this.grpFilter.Size = new System.Drawing.Size(443, 121);
             this.grpFilter.TabIndex = 15;
@@ -173,6 +174,7 @@
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Controls.Add(this.cmbStartDirection);
             this.grpGeneral.Controls.Add(this.label3);
             this.grpGeneral.Controls.Add(this.chkMultilap);
             this.grpGeneral.Controls.Add(this.txtEndCoords);
@@ -189,10 +191,19 @@
             this.grpGeneral.Controls.Add(this.cmbEqCheckpoint);
             this.grpGeneral.Location = new System.Drawing.Point(25, 70);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(444, 194);
+            this.grpGeneral.Size = new System.Drawing.Size(444, 249);
             this.grpGeneral.TabIndex = 7;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
+            // 
+            // cmbStartDirection
+            // 
+            this.cmbStartDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStartDirection.FormattingEnabled = true;
+            this.cmbStartDirection.Location = new System.Drawing.Point(142, 101);
+            this.cmbStartDirection.Name = "cmbStartDirection";
+            this.cmbStartDirection.Size = new System.Drawing.Size(121, 23);
+            this.cmbStartDirection.TabIndex = 15;
             // 
             // label3
             // 
@@ -215,7 +226,7 @@
             // 
             // txtEndCoords
             // 
-            this.txtEndCoords.Location = new System.Drawing.Point(195, 137);
+            this.txtEndCoords.Location = new System.Drawing.Point(332, 135);
             this.txtEndCoords.Name = "txtEndCoords";
             this.txtEndCoords.Size = new System.Drawing.Size(68, 23);
             this.txtEndCoords.TabIndex = 12;
@@ -225,7 +236,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(142, 140);
+            this.label2.Location = new System.Drawing.Point(282, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 15);
             this.label2.TabIndex = 11;
@@ -234,7 +245,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(142, 106);
+            this.label1.Location = new System.Drawing.Point(282, 106);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 15);
             this.label1.TabIndex = 10;
@@ -242,7 +253,7 @@
             // 
             // txtStartCoords
             // 
-            this.txtStartCoords.Location = new System.Drawing.Point(195, 103);
+            this.txtStartCoords.Location = new System.Drawing.Point(332, 103);
             this.txtStartCoords.Name = "txtStartCoords";
             this.txtStartCoords.Size = new System.Drawing.Size(68, 23);
             this.txtStartCoords.TabIndex = 9;
@@ -346,7 +357,7 @@
             this.grpBlock.Controls.Add(this.checkBox7);
             this.grpBlock.Controls.Add(this.checkBox6);
             this.grpBlock.Controls.Add(this.checkBox5);
-            this.grpBlock.Location = new System.Drawing.Point(24, 286);
+            this.grpBlock.Location = new System.Drawing.Point(24, 325);
             this.grpBlock.Name = "grpBlock";
             this.grpBlock.Size = new System.Drawing.Size(444, 164);
             this.grpBlock.TabIndex = 6;
@@ -488,7 +499,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 633);
+            this.ClientSize = new System.Drawing.Size(547, 688);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -555,5 +566,6 @@
         private GroupBox grpFilter;
         private CheckBox chkMultilap;
         private Label label3;
+        private ComboBox cmbStartDirection;
     }
 }

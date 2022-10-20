@@ -6,8 +6,7 @@ using TmEssentials;
 using AuthorState = System.Tuple<GbxTest.EqMode, TmEssentials.TimeInt32>;
 using CheckpointState = System.Tuple<GbxTest.EqMode, int>;
 using StatusMessage = System.Tuple<bool, string>;
-using BlockState = System.Tuple<GbxTest.EqMode, GBX.NET.Int3>;
-using MultilapState = System.Int32;
+using BlockState = System.Tuple<GBX.NET.Int3, GBX.NET.Direction>;
 
 namespace GbxTest
 {
@@ -21,6 +20,7 @@ namespace GbxTest
             InitializeComponent();
             cmbEqCheckpoint.DataSource = Enum.GetValues(typeof(EqMode));
             cmbEqAuthor.DataSource = Enum.GetValues(typeof(EqMode));
+            cmbStartDirection.DataSource = Enum.GetValues(typeof(Direction));
         }
 
         private Int3 GetStartCoords()
@@ -65,8 +65,35 @@ namespace GbxTest
                 if (!authorStatusSuccess) { MessageBox.Show("Error", authorStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
             }
 
-            TMMapRules? rules = new(null, null, cpState, null, authorState);
+            var start = GetStartState();
+            (BlockState? startState, StatusMessage startMessage) = start;
+            if (startState != null)
+            {
+                var (startStatusSuccess, startStatusMessage) = startMessage;  
+                if (!startStatusSuccess) { MessageBox.Show("Error", startStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+            }
+            
+            TMMapRules? rules = new(startState, null, cpState, null, authorState);
             return rules;
+        }
+
+        private Tuple<BlockState?, StatusMessage> GetStartState()
+        {
+            Tuple<BlockState?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
+            if (chkStart.Checked)
+            {
+                bool canConvert = TextToInt3(txtStartCoords.Text, out Int3 converted);
+                if (canConvert)
+                    state = new Tuple<BlockState?, StatusMessage>(new BlockState(converted, Direction.North), MESSAGE_GENERIC_SUCCESS);
+                else
+                    return new Tuple<BlockState?, StatusMessage>(null, new StatusMessage(false, "Couldn't convert coords"));
+            }
+            return state;
+        }
+
+        private Tuple<BlockState?, StatusMessage> GetFinishState()
+        {
+            return null;
         }
 
         private Tuple<CheckpointState?, StatusMessage> GetCheckpointState()
@@ -87,19 +114,39 @@ namespace GbxTest
             if (chkAuthorTime.Checked)
             {
                 EqMode eqMode = (EqMode)cmbEqAuthor.SelectedItem;
-                TimeInt32 time = new (TotalMilliseconds: 1000);
-                try
+                bool canConvert = int.TryParse(txtAuthorTime.Text, out int num);
+                if (canConvert)
                 {
-                    time = new TimeInt32(Convert.ToInt32(txtAuthorTime.Text));
+                    TimeInt32 time = new (num);
+                    authorTime = new Tuple<AuthorState?, StatusMessage>(new AuthorState(eqMode, time), MESSAGE_GENERIC_SUCCESS);
                 }
-                catch (Exception ex)
-                {
+                else
                     return new Tuple<AuthorState?, StatusMessage>(null, new StatusMessage(false, "Invalid time"));
-                }
-                authorTime = new Tuple<AuthorState?, StatusMessage>(new AuthorState(eqMode, time), MESSAGE_GENERIC_SUCCESS);
+             
             }
             return authorTime;
         }
+
+
+        private static bool TextToInt3(string text, out Int3 conversion)
+        {
+            conversion = default;
+            text = text.Replace(" ", string.Empty);
+            string[] split = text.Split(',');
+            if (split.Length != 3) return false;
+            int[] xyz = new int[split.Length];
+            for(int i = 0; i < split.Length; i++)
+            {
+                bool canConvert = int.TryParse(split[i], out int num);
+                if(canConvert)
+                    xyz[i] = num;
+                else
+                    return false;
+            }
+            conversion = new Int3(xyz[0], xyz[1], xyz[2]);
+            return true;
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
