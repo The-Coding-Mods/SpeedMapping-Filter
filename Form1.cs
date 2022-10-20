@@ -1,9 +1,10 @@
 
-using GBX.NET.Engines.Game;
 using GBX.NET;
+using GBX.NET.Engines.Game;
 using TmEssentials;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-using System.Globalization;
+using AuthorState = System.Tuple<GbxTest.EqMode, TmEssentials.TimeInt32>;
+using CheckpointState = System.Tuple<GbxTest.EqMode, int>;
+using StatusMessage = System.Tuple<bool, string>;
 
 namespace GbxTest
 {
@@ -42,21 +43,68 @@ namespace GbxTest
             return map.Blocks.First(e => e.Name.ToLower().Contains("start")).Coord;
         }
 
+        private TMMapRules? CreateRules()
+        {
+            Tuple<CheckpointState?, StatusMessage> cp = GetCheckpointState();
+            (CheckpointState? cpState, StatusMessage cpStatus) = cp;
+            if (cpState != null)
+            {
+                var (cpStatusSuccess, cpStatusMessage) = cpStatus;
+                if (!cpStatusSuccess) { MessageBox.Show("Error", cpStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+            }
+
+            Tuple<AuthorState?, StatusMessage> author = GetAuthorTimeState();
+            (AuthorState? authorState, StatusMessage authorMessage) = author;
+            if(authorState != null)
+            {
+                var (authorStatusSuccess, authorStatusMessage) = authorMessage;
+                if (!authorStatusSuccess) { MessageBox.Show("Error", authorStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+            }
+
+            TMMapRules? rules = new(null, null, cpState, null, authorState);
+            return rules;
+        }
+
+        private Tuple<CheckpointState?, StatusMessage> GetCheckpointState()
+        {
+            Tuple<CheckpointState?, StatusMessage> cp = new(null, new StatusMessage(true, ""));
+            if (chkCheckpoint.Checked)
+            {
+                EqMode eqMode = (EqMode)cmbEqCheckpoint.SelectedItem;
+                int cpCount = (int)numCheckpoint.Value;
+                cp = new Tuple<CheckpointState?, StatusMessage>(new CheckpointState(eqMode, cpCount), new StatusMessage(true, "Success"));
+            }
+            return cp;
+        }
+
+        private Tuple<AuthorState?, StatusMessage> GetAuthorTimeState()
+        {
+            Tuple<AuthorState?, StatusMessage> authorTime = null;
+            if (chkAuthorTime.Checked)
+            {
+                EqMode eqMode = (EqMode)cmbEqAuthor.SelectedItem;
+                TimeInt32 time = new TimeInt32(TotalMilliseconds: 1000);
+                try
+                {
+                    time = new TimeInt32(Convert.ToInt32(txtAuthorTime.Text));
+                }
+                catch (Exception ex)
+                {
+                    return new Tuple<AuthorState?, StatusMessage>(null, new StatusMessage(false, "Invalid time"));
+                }
+                authorTime = new Tuple<AuthorState?, StatusMessage>(new AuthorState(eqMode, time), new StatusMessage(false, "Invalid time"));
+            }
+            return authorTime;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var map = GameBox.ParseNode<CGameCtnChallenge>("C:\\Users\\valbj\\OneDrive\\Documents\\Trackmania\\Maps\\Downloaded\\idk-tbh.Map.Gbx");
-            var startBlock = map.Blocks.First(e => e.Name.ToLower().Contains("start"));
-            Console.WriteLine("Test");
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
+            TMMapRules? rule = CreateRules();
         }
 
         private void btnTemplate_Click(object sender, EventArgs e)
@@ -70,69 +118,6 @@ namespace GbxTest
             grpGeneral.Enabled = chkIgnoreTemplate.Checked;
             grpBlock.Enabled = chkIgnoreTemplate.Checked;
             grpFilter.Enabled = chkIgnoreTemplate.Checked;
-        }
-
-        private void cmbEqCheckpoint_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (globalRule.ForceCheckpointCount != null)
-            {
-                var (eq, count) = globalRule.ForceCheckpointCount;
-                EqMode eqMode = (EqMode)cmbEqCheckpoint.SelectedItem;
-                if (eq != eqMode) globalRule.ForceCheckpointCount = new Tuple<EqMode, int>(eqMode, count);
-            }
-        }
-
-        private void chkCheckpoint_CheckedChanged(object sender, EventArgs e)
-        {
-            if(chkCheckpoint.Checked)
-            {
-                EqMode eqMode = (EqMode)cmbEqCheckpoint.SelectedItem;
-                int cpCount = (int)numCheckpoint.Value;
-                globalRule.ForceCheckpointCount = new Tuple<EqMode, int>(eqMode, cpCount);
-            }
-            else
-                globalRule.ForceCheckpointCount = null;
-        }
-
-        private void chkAuthorTime_CheckedChanged(object sender, EventArgs e)
-        {
-            if(chkAuthorTime.Checked)
-            {
-                EqMode eqMode = (EqMode)cmbEqAuthor.SelectedItem;
-                TimeInt32 time = new TimeInt32(TotalMilliseconds:1000);
-                try
-                {
-                    time = new TimeInt32(Convert.ToInt32(txtAuthorTime.Text));
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("Invalid time! Please enter time in milliseconds.", "Formatting error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtAuthorTime.Text = "0";
-                    return;
-                }
-                globalRule.ForceAuthorTime = new Tuple<EqMode, TimeInt32>(eqMode, time);
-            }
-        }
-
-        private void txtAuthorTime_TextChanged(object sender, EventArgs e)
-        {
-            if(txtAuthorTime.TextLength > 0 && globalRule.ForceAuthorTime != null)
-            {
-                var (eq, time) = globalRule.ForceAuthorTime;
-                TimeInt32 calculated;
-                try
-                {
-                    calculated = new TimeInt32(Convert.ToInt32(txtAuthorTime.Text));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Invalid time! Please enter time in milliseconds.", "Formatting error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtAuthorTime.Text = "0";
-                    return;
-                }
-
-                if (calculated != time) globalRule.ForceAuthorTime = new Tuple<EqMode, TimeInt32>(eq, calculated);
-            }
         }
     }
 }

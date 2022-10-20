@@ -88,7 +88,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ruleset";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // grpFilter
             // 
@@ -258,7 +257,6 @@
             this.txtAuthorTime.TabIndex = 8;
             this.txtAuthorTime.Text = "15000";
             this.txtAuthorTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtAuthorTime.TextChanged += new System.EventHandler(this.txtAuthorTime_TextChanged);
             // 
             // cmbEqAuthor
             // 
@@ -278,7 +276,6 @@
             this.chkAuthorTime.TabIndex = 6;
             this.chkAuthorTime.Text = "Author time";
             this.chkAuthorTime.UseVisualStyleBackColor = true;
-            this.chkAuthorTime.CheckedChanged += new System.EventHandler(this.chkAuthorTime_CheckedChanged);
             // 
             // chkCheckpoint
             // 
@@ -289,7 +286,6 @@
             this.chkCheckpoint.TabIndex = 3;
             this.chkCheckpoint.Text = "Checkpoint count";
             this.chkCheckpoint.UseVisualStyleBackColor = true;
-            this.chkCheckpoint.CheckedChanged += new System.EventHandler(this.chkCheckpoint_CheckedChanged);
             // 
             // chkStart
             // 
@@ -337,7 +333,6 @@
             this.cmbEqCheckpoint.Name = "cmbEqCheckpoint";
             this.cmbEqCheckpoint.Size = new System.Drawing.Size(121, 23);
             this.cmbEqCheckpoint.TabIndex = 4;
-            this.cmbEqCheckpoint.SelectedIndexChanged += new System.EventHandler(this.cmbEqCheckpoint_SelectedIndexChanged);
             // 
             // grpBlock
             // 
@@ -465,7 +460,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(542, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(547, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -493,7 +488,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 643);
+            this.ClientSize = new System.Drawing.Size(547, 633);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
