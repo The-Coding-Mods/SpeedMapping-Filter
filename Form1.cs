@@ -12,9 +12,9 @@ namespace GbxTest
 {
     public partial class Form1 : Form
     {
-        private static readonly StatusMessage MESSAGE_DEFAULT = new StatusMessage(true, "");
-        private static readonly StatusMessage MESSAGE_GENERIC_ERROR = new StatusMessage(false, "An error occured");
-        private static readonly StatusMessage MESSAGE_GENERIC_SUCCESS = new StatusMessage(true, "Success");
+        private static readonly StatusMessage MESSAGE_DEFAULT = new(true, "");
+        private static readonly StatusMessage MESSAGE_GENERIC_ERROR = new(false, "An error occured");
+        private static readonly StatusMessage MESSAGE_GENERIC_SUCCESS = new(true, "Success");
         public Form1()
         {
             InitializeComponent();
@@ -41,9 +41,9 @@ namespace GbxTest
 
             TMMapTemplate template2 = new(map2);
 
-            TMMapRules rules = new(null, null, null, null, new AuthorState(EqMode.LESS_THAN, TimeInt32.MaxValue));
+            //TMMapRules rules = new(null, null, null, null, null, new AuthorState(EqMode.LESS_THAN, TimeInt32.MaxValue));
 
-            bool val = template2.Obeys(rules);
+            //bool val = template2.Obeys(rules);
             return map.Blocks.First(e => e.Name.ToLower().Contains("start")).Coord;
         }
 
@@ -72,8 +72,8 @@ namespace GbxTest
                 var (startStatusSuccess, startStatusMessage) = startMessage;  
                 if (!startStatusSuccess) { MessageBox.Show("Error", startStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
             }
-            
-            TMMapRules? rules = new(startState, null, cpState, null, authorState);
+
+            TMMapRules? rules = new(startState, null, null, cpState, null, authorState);
             return rules;
         }
 
@@ -147,6 +147,12 @@ namespace GbxTest
             return true;
         }
 
+        private static bool Int3ToText(Int3 coord, out string conversion)
+        {
+            conversion = string.Format("{0},{1},{2}", coord.X, coord.Y, coord.Z);
+            return true;
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -156,6 +162,18 @@ namespace GbxTest
         private void button1_Click(object sender, EventArgs e)
         {
             TMMapRules? rule = CreateRules();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Please select a .gbx file";
+            openFileDialog.Filter = "Gbx files (*.gbx)|*.gbx";
+            string path = "";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                path = openFileDialog.FileName;
+
+            var map = GameBox.ParseNode<CGameCtnChallenge>(path);
+
+            TMMapTemplate template = new(map);
+
+            template.Obeys(rule);
         }
 
         private void btnTemplate_Click(object sender, EventArgs e)

@@ -3,7 +3,7 @@
     public enum BlockMode
     {
         START,
-        MULTISTART,
+        MULTILAP,
         FINISH,
         CHECKPOINT
     }
