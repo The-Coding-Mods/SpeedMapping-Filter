@@ -13,7 +13,7 @@ namespace GbxTest
     /// </summary>
     public class TMMapRules
     {
-        public TMMapRules(Tuple<Int3, Direction>? forceStart, List<Tuple<Int3, Direction>> forceFinish, List<Tuple<Int3, Direction>> forceCheckpoint, Tuple<EqMode, int>? forceCheckpointCount,
+        public TMMapRules(Tuple<Int3, Direction>? forceStart, List<Tuple<Int3, Direction>>? forceFinish, List<Tuple<Int3, Direction>>? forceCheckpoint, Tuple<EqMode, int>? forceCheckpointCount,
             int? forceMultiLap, Tuple<EqMode, TimeInt32>? forceAuthorTime)
         {
             ForceStart = forceStart;

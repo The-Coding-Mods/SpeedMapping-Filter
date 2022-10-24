@@ -38,11 +38,14 @@
             this.chkIgnoreTemplate = new System.Windows.Forms.CheckBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnAddCp = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnAddFinish = new System.Windows.Forms.Button();
             this.cmbStartDirection = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chkMultilap = new System.Windows.Forms.CheckBox();
-            this.txtEndCoords = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtStartCoords = new System.Windows.Forms.TextBox();
             this.txtAuthorTime = new System.Windows.Forms.TextBox();
@@ -174,11 +177,14 @@
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Controls.Add(this.label5);
+            this.grpGeneral.Controls.Add(this.label2);
+            this.grpGeneral.Controls.Add(this.btnAddCp);
+            this.grpGeneral.Controls.Add(this.checkBox1);
+            this.grpGeneral.Controls.Add(this.btnAddFinish);
             this.grpGeneral.Controls.Add(this.cmbStartDirection);
             this.grpGeneral.Controls.Add(this.label3);
             this.grpGeneral.Controls.Add(this.chkMultilap);
-            this.grpGeneral.Controls.Add(this.txtEndCoords);
-            this.grpGeneral.Controls.Add(this.label2);
             this.grpGeneral.Controls.Add(this.label1);
             this.grpGeneral.Controls.Add(this.txtStartCoords);
             this.grpGeneral.Controls.Add(this.txtAuthorTime);
@@ -196,19 +202,67 @@
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(300, 181);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 15);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "0 checkpoints";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(300, 143);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 15);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "0 finishes";
+            // 
+            // btnAddCp
+            // 
+            this.btnAddCp.Location = new System.Drawing.Point(151, 176);
+            this.btnAddCp.Name = "btnAddCp";
+            this.btnAddCp.Size = new System.Drawing.Size(128, 23);
+            this.btnAddCp.TabIndex = 18;
+            this.btnAddCp.Text = "Manage checkpoints";
+            this.btnAddCp.UseVisualStyleBackColor = true;
+            this.btnAddCp.Click += new System.EventHandler(this.btnAddCp_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(15, 180);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(138, 19);
+            this.checkBox1.TabIndex = 17;
+            this.checkBox1.Text = "Identical checkpoints";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // btnAddFinish
+            // 
+            this.btnAddFinish.Location = new System.Drawing.Point(151, 136);
+            this.btnAddFinish.Name = "btnAddFinish";
+            this.btnAddFinish.Size = new System.Drawing.Size(128, 23);
+            this.btnAddFinish.TabIndex = 16;
+            this.btnAddFinish.Text = "Manage finishes";
+            this.btnAddFinish.UseVisualStyleBackColor = true;
+            this.btnAddFinish.Click += new System.EventHandler(this.btnAddFinish_Click);
+            // 
             // cmbStartDirection
             // 
             this.cmbStartDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStartDirection.FormattingEnabled = true;
-            this.cmbStartDirection.Location = new System.Drawing.Point(142, 101);
+            this.cmbStartDirection.Location = new System.Drawing.Point(151, 101);
             this.cmbStartDirection.Name = "cmbStartDirection";
-            this.cmbStartDirection.Size = new System.Drawing.Size(121, 23);
+            this.cmbStartDirection.Size = new System.Drawing.Size(128, 23);
             this.cmbStartDirection.TabIndex = 15;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(333, 72);
+            this.label3.Location = new System.Drawing.Point(351, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 15);
             this.label3.TabIndex = 14;
@@ -217,35 +271,17 @@
             // chkMultilap
             // 
             this.chkMultilap.AutoSize = true;
-            this.chkMultilap.Location = new System.Drawing.Point(15, 169);
+            this.chkMultilap.Location = new System.Drawing.Point(15, 224);
             this.chkMultilap.Name = "chkMultilap";
             this.chkMultilap.Size = new System.Drawing.Size(117, 19);
             this.chkMultilap.TabIndex = 13;
             this.chkMultilap.Text = "Disallow multilap";
             this.chkMultilap.UseVisualStyleBackColor = true;
             // 
-            // txtEndCoords
-            // 
-            this.txtEndCoords.Location = new System.Drawing.Point(332, 135);
-            this.txtEndCoords.Name = "txtEndCoords";
-            this.txtEndCoords.Size = new System.Drawing.Size(68, 23);
-            this.txtEndCoords.TabIndex = 12;
-            this.txtEndCoords.Text = "0,0,0";
-            this.txtEndCoords.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(282, 139);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 15);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Coords";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(282, 106);
+            this.label1.Location = new System.Drawing.Point(300, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 15);
             this.label1.TabIndex = 10;
@@ -253,7 +289,7 @@
             // 
             // txtStartCoords
             // 
-            this.txtStartCoords.Location = new System.Drawing.Point(332, 103);
+            this.txtStartCoords.Location = new System.Drawing.Point(351, 101);
             this.txtStartCoords.Name = "txtStartCoords";
             this.txtStartCoords.Size = new System.Drawing.Size(68, 23);
             this.txtStartCoords.TabIndex = 9;
@@ -262,7 +298,7 @@
             // 
             // txtAuthorTime
             // 
-            this.txtAuthorTime.Location = new System.Drawing.Point(281, 66);
+            this.txtAuthorTime.Location = new System.Drawing.Point(300, 69);
             this.txtAuthorTime.Name = "txtAuthorTime";
             this.txtAuthorTime.Size = new System.Drawing.Size(46, 23);
             this.txtAuthorTime.TabIndex = 8;
@@ -273,9 +309,9 @@
             // 
             this.cmbEqAuthor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEqAuthor.FormattingEnabled = true;
-            this.cmbEqAuthor.Location = new System.Drawing.Point(142, 64);
+            this.cmbEqAuthor.Location = new System.Drawing.Point(151, 64);
             this.cmbEqAuthor.Name = "cmbEqAuthor";
-            this.cmbEqAuthor.Size = new System.Drawing.Size(121, 23);
+            this.cmbEqAuthor.Size = new System.Drawing.Size(128, 23);
             this.cmbEqAuthor.TabIndex = 7;
             // 
             // chkAuthorTime
@@ -310,7 +346,7 @@
             // 
             // numCheckpoint
             // 
-            this.numCheckpoint.Location = new System.Drawing.Point(281, 33);
+            this.numCheckpoint.Location = new System.Drawing.Point(300, 33);
             this.numCheckpoint.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -340,9 +376,9 @@
             // 
             this.cmbEqCheckpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEqCheckpoint.FormattingEnabled = true;
-            this.cmbEqCheckpoint.Location = new System.Drawing.Point(142, 32);
+            this.cmbEqCheckpoint.Location = new System.Drawing.Point(151, 33);
             this.cmbEqCheckpoint.Name = "cmbEqCheckpoint";
-            this.cmbEqCheckpoint.Size = new System.Drawing.Size(121, 23);
+            this.cmbEqCheckpoint.Size = new System.Drawing.Size(128, 23);
             this.cmbEqCheckpoint.TabIndex = 4;
             // 
             // grpBlock
@@ -471,7 +507,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(547, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(538, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -499,7 +535,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 688);
+            this.ClientSize = new System.Drawing.Size(538, 688);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -539,8 +575,6 @@
         private CheckBox chkStart;
         private GroupBox grpGeneral;
         private Button btnTemplate;
-        private TextBox txtEndCoords;
-        private Label label2;
         private Label label1;
         private TextBox txtStartCoords;
         private TextBox txtAuthorTime;
@@ -567,5 +601,10 @@
         private CheckBox chkMultilap;
         private Label label3;
         private ComboBox cmbStartDirection;
+        private Button btnAddFinish;
+        private Button btnAddCp;
+        private CheckBox checkBox1;
+        private Label label5;
+        private Label label2;
     }
 }

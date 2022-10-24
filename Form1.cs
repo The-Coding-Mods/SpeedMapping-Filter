@@ -23,28 +23,44 @@ namespace GbxTest
             cmbStartDirection.DataSource = Enum.GetValues(typeof(Direction));
         }
 
-        private Int3 GetStartCoords()
+        private void InitializeTemplate()
         {
-            //Test cases
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Please select a .gbx file";
-            openFileDialog.Filter = "Gbx files (*.gbx)|*.gbx";
+            openFileDialog.Title = "Please select a map.gbx file";
+            openFileDialog.Filter = "Map Gbx files (*map.gbx)|*map.gbx";
             string path = "";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 path = openFileDialog.FileName;
+            else
+                return;
 
-            var map = GameBox.ParseNode<CGameCtnChallenge>(path);
+            CGameCtnChallenge rawMapInfo = GameBox.ParseNode<CGameCtnChallenge>(path);
+            if (rawMapInfo == null) return;
+            TMMapTemplate mapTemplate = new(rawMapInfo);
+            if (mapTemplate == null) return;
 
-            var map2 = GameBox.ParseNode<CGameCtnChallenge>("C:\\Users\\valbj\\Downloads\\gigachad.Map.Gbx");
+            if (mapTemplate.Start != null && mapTemplate.Start.Count > 0)
+            {
+                bool canConvert = Int3ToText(mapTemplate.Start[0].Coord, out string cv);
+                txtStartCoords.Text = canConvert ? cv : "";
+                cmbStartDirection.SelectedItem = mapTemplate.Start[0].Direction;
+            }
 
-            TMMapTemplate template = new(map);
+            if (mapTemplate.Finish != null && mapTemplate.Finish.Count > 0)
+            {
+                btnAddFinish.Tag = mapTemplate.Finish;
+            }
 
-            TMMapTemplate template2 = new(map2);
+            if (mapTemplate.Checkpoints != null && mapTemplate.Checkpoints.Count > 0)
+            {
+                btnAddCp.Tag = mapTemplate.Checkpoints;
+            }
 
-            //TMMapRules rules = new(null, null, null, null, null, new AuthorState(EqMode.LESS_THAN, TimeInt32.MaxValue));
+            if (mapTemplate.AuthorTime != null)
+                txtAuthorTime.Text = mapTemplate.AuthorTime.Value.TotalMilliseconds.ToString();
 
-            //bool val = template2.Obeys(rules);
-            return map.Blocks.First(e => e.Name.ToLower().Contains("start")).Coord;
+            if(mapTemplate.CheckpointNum != null)
+                numCheckpoint.Value = mapTemplate.CheckpointNum.Value;
         }
 
         private TMMapRules? CreateRules()
@@ -91,8 +107,13 @@ namespace GbxTest
             return state;
         }
 
-        private Tuple<BlockState?, StatusMessage> GetFinishState()
+        private Tuple<List<BlockState>?, StatusMessage> GetFinishState()
         {
+            Tuple<List<BlockState>?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
+            if(chkFinish.Checked)
+            {
+
+            }
             return null;
         }
 
@@ -178,8 +199,7 @@ namespace GbxTest
 
         private void btnTemplate_Click(object sender, EventArgs e)
         {
-            Int3 val = GetStartCoords();
-            txtStartCoords.Text = val.ToString();
+            InitializeTemplate();
         }
 
         private void chkIgnoreTemplate_CheckedChanged(object sender, EventArgs e)
@@ -187,6 +207,26 @@ namespace GbxTest
             grpGeneral.Enabled = chkIgnoreTemplate.Checked;
             grpBlock.Enabled = chkIgnoreTemplate.Checked;
             grpFilter.Enabled = chkIgnoreTemplate.Checked;
+        }
+
+        private void btnAddFinish_Click(object sender, EventArgs e)
+        {
+            List<CGameCtnBlock> tag = (List<CGameCtnBlock>)btnAddFinish.Tag;
+            Manage frm = new(tag, BlockMode.FINISH)
+            {
+                ShowInTaskbar = false
+            };
+            frm.ShowDialog();
+        }
+
+        private void btnAddCp_Click(object sender, EventArgs e)
+        {
+            List<CGameCtnBlock> tag = (List<CGameCtnBlock>)btnAddCp.Tag;
+            Manage frm = new(tag, BlockMode.CHECKPOINT)
+            {
+                ShowInTaskbar = false
+            };
+            frm.ShowDialog();
         }
     }
 }
