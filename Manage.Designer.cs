@@ -58,9 +58,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(12, 53);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 21);
+            this.label1.Size = new System.Drawing.Size(213, 21);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Current:";
+            this.label1.Text = "Coordinates              Direction";
             // 
             // btnSave
             // 
@@ -71,6 +71,7 @@
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnRemove
             // 
@@ -115,6 +116,7 @@
             // 
             // cmbDirection
             // 
+            this.cmbDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDirection.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmbDirection.FormattingEnabled = true;
             this.cmbDirection.Location = new System.Drawing.Point(244, 15);
@@ -131,6 +133,7 @@
             this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnAdvanced
             // 
@@ -155,7 +158,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 323);
+            this.ClientSize = new System.Drawing.Size(498, 321);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.btnAdvanced);
             this.Controls.Add(this.btnAdd);

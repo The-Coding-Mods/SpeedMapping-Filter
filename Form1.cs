@@ -20,6 +20,7 @@ namespace GbxTest
             InitializeComponent();
             cmbEqCheckpoint.DataSource = Enum.GetValues(typeof(EqMode));
             cmbEqAuthor.DataSource = Enum.GetValues(typeof(EqMode));
+            cmbEqMultilap.DataSource = Enum.GetValues(typeof(EqMode));
             cmbStartDirection.DataSource = Enum.GetValues(typeof(Direction));
         }
 
@@ -28,7 +29,7 @@ namespace GbxTest
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Please select a map.gbx file";
             openFileDialog.Filter = "Map Gbx files (*map.gbx)|*map.gbx";
-            string path = "";
+            string path;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 path = openFileDialog.FileName;
             else
@@ -41,7 +42,7 @@ namespace GbxTest
 
             if (mapTemplate.Start != null && mapTemplate.Start.Count > 0)
             {
-                bool canConvert = Int3ToText(mapTemplate.Start[0].Coord, out string cv);
+                bool canConvert = Misc.Int3ToText(mapTemplate.Start[0].Coord, out string cv);
                 txtStartCoords.Text = canConvert ? cv : "";
                 cmbStartDirection.SelectedItem = mapTemplate.Start[0].Direction;
             }
@@ -49,11 +50,13 @@ namespace GbxTest
             if (mapTemplate.Finish != null && mapTemplate.Finish.Count > 0)
             {
                 btnAddFinish.Tag = mapTemplate.Finish;
+                lblFinishes.Text = string.Format("{0} finishes", mapTemplate.Finish.Count);
             }
 
             if (mapTemplate.Checkpoints != null && mapTemplate.Checkpoints.Count > 0)
             {
                 btnAddCp.Tag = mapTemplate.Checkpoints;
+                lblCheckpoints.Text = string.Format("{0} checkpoints", mapTemplate.Checkpoints.Count);
             }
 
             if (mapTemplate.AuthorTime != null)
@@ -98,7 +101,7 @@ namespace GbxTest
             Tuple<BlockState?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
             if (chkStart.Checked)
             {
-                bool canConvert = TextToInt3(txtStartCoords.Text, out Int3 converted);
+                bool canConvert = Misc.TextToInt3(txtStartCoords.Text, out Int3 converted);
                 if (canConvert)
                     state = new Tuple<BlockState?, StatusMessage>(new BlockState(converted, Direction.North), MESSAGE_GENERIC_SUCCESS);
                 else
@@ -148,33 +151,6 @@ namespace GbxTest
             return authorTime;
         }
 
-
-        private static bool TextToInt3(string text, out Int3 conversion)
-        {
-            conversion = default;
-            text = text.Replace(" ", string.Empty);
-            string[] split = text.Split(',');
-            if (split.Length != 3) return false;
-            int[] xyz = new int[split.Length];
-            for(int i = 0; i < split.Length; i++)
-            {
-                bool canConvert = int.TryParse(split[i], out int num);
-                if(canConvert)
-                    xyz[i] = num;
-                else
-                    return false;
-            }
-            conversion = new Int3(xyz[0], xyz[1], xyz[2]);
-            return true;
-        }
-
-        private static bool Int3ToText(Int3 coord, out string conversion)
-        {
-            conversion = string.Format("{0},{1},{2}", coord.X, coord.Y, coord.Z);
-            return true;
-        }
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -216,7 +192,9 @@ namespace GbxTest
             {
                 ShowInTaskbar = false
             };
-            frm.ShowDialog();
+            DialogResult result = frm.ShowDialog();
+            List<Tuple<CGameCtnBlock?, BlockState>> finishList = frm.BlockList;
+            MessageBox.Show(result.ToString());
         }
 
         private void btnAddCp_Click(object sender, EventArgs e)
@@ -227,6 +205,16 @@ namespace GbxTest
                 ShowInTaskbar = false
             };
             frm.ShowDialog();
+        }
+
+        private void numMultilap_ValueChanged(object sender, EventArgs e)
+        {
+            lblMultilap.Text = numMultilap.Value == 1 ? "lap" : "laps";
+        }
+
+        private void numCheckpoint_ValueChanged(object sender, EventArgs e)
+        {
+            lblCheckpoint.Text = numCheckpoint.Value == 1 ? "checkpoint" : "checkpoints";
         }
     }
 }

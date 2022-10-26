@@ -38,8 +38,12 @@
             this.chkIgnoreTemplate = new System.Windows.Forms.CheckBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblCheckpoint = new System.Windows.Forms.Label();
+            this.lblMultilap = new System.Windows.Forms.Label();
+            this.numMultilap = new System.Windows.Forms.NumericUpDown();
+            this.cmbEqMultilap = new System.Windows.Forms.ComboBox();
+            this.lblCheckpoints = new System.Windows.Forms.Label();
+            this.lblFinishes = new System.Windows.Forms.Label();
             this.btnAddCp = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnAddFinish = new System.Windows.Forms.Button();
@@ -57,6 +61,7 @@
             this.chkFinish = new System.Windows.Forms.CheckBox();
             this.cmbEqCheckpoint = new System.Windows.Forms.ComboBox();
             this.grpBlock = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.checkBox13 = new System.Windows.Forms.CheckBox();
             this.checkBox12 = new System.Windows.Forms.CheckBox();
@@ -74,6 +79,7 @@
             this.groupBox1.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.grpGeneral.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMultilap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCheckpoint)).BeginInit();
             this.grpBlock.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -177,8 +183,12 @@
             // 
             // grpGeneral
             // 
-            this.grpGeneral.Controls.Add(this.label5);
-            this.grpGeneral.Controls.Add(this.label2);
+            this.grpGeneral.Controls.Add(this.lblCheckpoint);
+            this.grpGeneral.Controls.Add(this.lblMultilap);
+            this.grpGeneral.Controls.Add(this.numMultilap);
+            this.grpGeneral.Controls.Add(this.cmbEqMultilap);
+            this.grpGeneral.Controls.Add(this.lblCheckpoints);
+            this.grpGeneral.Controls.Add(this.lblFinishes);
             this.grpGeneral.Controls.Add(this.btnAddCp);
             this.grpGeneral.Controls.Add(this.checkBox1);
             this.grpGeneral.Controls.Add(this.btnAddFinish);
@@ -202,23 +212,69 @@
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
             // 
-            // label5
+            // lblCheckpoint
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(300, 181);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 15);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "0 checkpoints";
+            this.lblCheckpoint.AutoSize = true;
+            this.lblCheckpoint.Location = new System.Drawing.Point(351, 36);
+            this.lblCheckpoint.Name = "lblCheckpoint";
+            this.lblCheckpoint.Size = new System.Drawing.Size(66, 15);
+            this.lblCheckpoint.TabIndex = 24;
+            this.lblCheckpoint.Text = "checkpoint";
             // 
-            // label2
+            // lblMultilap
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(300, 143);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 15);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "0 finishes";
+            this.lblMultilap.AutoSize = true;
+            this.lblMultilap.Location = new System.Drawing.Point(357, 216);
+            this.lblMultilap.Name = "lblMultilap";
+            this.lblMultilap.Size = new System.Drawing.Size(23, 15);
+            this.lblMultilap.TabIndex = 23;
+            this.lblMultilap.Text = "lap";
+            // 
+            // numMultilap
+            // 
+            this.numMultilap.Location = new System.Drawing.Point(300, 214);
+            this.numMultilap.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numMultilap.Name = "numMultilap";
+            this.numMultilap.Size = new System.Drawing.Size(46, 23);
+            this.numMultilap.TabIndex = 22;
+            this.numMultilap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numMultilap.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMultilap.ValueChanged += new System.EventHandler(this.numMultilap_ValueChanged);
+            // 
+            // cmbEqMultilap
+            // 
+            this.cmbEqMultilap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEqMultilap.FormattingEnabled = true;
+            this.cmbEqMultilap.Location = new System.Drawing.Point(151, 212);
+            this.cmbEqMultilap.Name = "cmbEqMultilap";
+            this.cmbEqMultilap.Size = new System.Drawing.Size(128, 23);
+            this.cmbEqMultilap.TabIndex = 21;
+            // 
+            // lblCheckpoints
+            // 
+            this.lblCheckpoints.AutoSize = true;
+            this.lblCheckpoints.Location = new System.Drawing.Point(300, 181);
+            this.lblCheckpoints.Name = "lblCheckpoints";
+            this.lblCheckpoints.Size = new System.Drawing.Size(88, 15);
+            this.lblCheckpoints.TabIndex = 20;
+            this.lblCheckpoints.Text = "0 checkpoint(s)";
+            // 
+            // lblFinishes
+            // 
+            this.lblFinishes.AutoSize = true;
+            this.lblFinishes.Location = new System.Drawing.Point(300, 143);
+            this.lblFinishes.Name = "lblFinishes";
+            this.lblFinishes.Size = new System.Drawing.Size(56, 15);
+            this.lblFinishes.TabIndex = 19;
+            this.lblFinishes.Text = "0 finishes";
             // 
             // btnAddCp
             // 
@@ -226,7 +282,7 @@
             this.btnAddCp.Name = "btnAddCp";
             this.btnAddCp.Size = new System.Drawing.Size(128, 23);
             this.btnAddCp.TabIndex = 18;
-            this.btnAddCp.Text = "Manage checkpoints";
+            this.btnAddCp.Text = "Checkpoints";
             this.btnAddCp.UseVisualStyleBackColor = true;
             this.btnAddCp.Click += new System.EventHandler(this.btnAddCp_Click);
             // 
@@ -246,7 +302,7 @@
             this.btnAddFinish.Name = "btnAddFinish";
             this.btnAddFinish.Size = new System.Drawing.Size(128, 23);
             this.btnAddFinish.TabIndex = 16;
-            this.btnAddFinish.Text = "Manage finishes";
+            this.btnAddFinish.Text = "Finishes";
             this.btnAddFinish.UseVisualStyleBackColor = true;
             this.btnAddFinish.Click += new System.EventHandler(this.btnAddFinish_Click);
             // 
@@ -271,11 +327,11 @@
             // chkMultilap
             // 
             this.chkMultilap.AutoSize = true;
-            this.chkMultilap.Location = new System.Drawing.Point(15, 224);
+            this.chkMultilap.Location = new System.Drawing.Point(15, 214);
             this.chkMultilap.Name = "chkMultilap";
-            this.chkMultilap.Size = new System.Drawing.Size(117, 19);
+            this.chkMultilap.Size = new System.Drawing.Size(70, 19);
             this.chkMultilap.TabIndex = 13;
-            this.chkMultilap.Text = "Disallow multilap";
+            this.chkMultilap.Text = "Multilap";
             this.chkMultilap.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -361,6 +417,7 @@
             0,
             0,
             0});
+            this.numCheckpoint.ValueChanged += new System.EventHandler(this.numCheckpoint_ValueChanged);
             // 
             // chkFinish
             // 
@@ -383,6 +440,7 @@
             // 
             // grpBlock
             // 
+            this.grpBlock.Controls.Add(this.label2);
             this.grpBlock.Controls.Add(this.checkBox14);
             this.grpBlock.Controls.Add(this.checkBox13);
             this.grpBlock.Controls.Add(this.checkBox12);
@@ -399,6 +457,16 @@
             this.grpBlock.TabIndex = 6;
             this.grpBlock.TabStop = false;
             this.grpBlock.Text = "Disallowed block styles";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(213, 132);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(193, 15);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Warning: scenery will be affected";
             // 
             // checkBox14
             // 
@@ -551,6 +619,7 @@
             this.grpFilter.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMultilap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCheckpoint)).EndInit();
             this.grpBlock.ResumeLayout(false);
             this.grpBlock.PerformLayout();
@@ -604,7 +673,12 @@
         private Button btnAddFinish;
         private Button btnAddCp;
         private CheckBox checkBox1;
-        private Label label5;
+        private Label lblCheckpoints;
+        private Label lblFinishes;
         private Label label2;
+        private Label lblCheckpoint;
+        private Label lblMultilap;
+        private NumericUpDown numMultilap;
+        private ComboBox cmbEqMultilap;
     }
 }
