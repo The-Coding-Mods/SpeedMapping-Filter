@@ -126,5 +126,10 @@ namespace GbxTest
             Direction dir = (Direction)cmbDirection.SelectedItem;
             InsertBlock(new(converted, dir));
         }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -45,7 +45,7 @@
             this.lblCheckpoints = new System.Windows.Forms.Label();
             this.lblFinishes = new System.Windows.Forms.Label();
             this.btnAddCp = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkCheckpoint = new System.Windows.Forms.CheckBox();
             this.btnAddFinish = new System.Windows.Forms.Button();
             this.cmbStartDirection = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             this.txtAuthorTime = new System.Windows.Forms.TextBox();
             this.cmbEqAuthor = new System.Windows.Forms.ComboBox();
             this.chkAuthorTime = new System.Windows.Forms.CheckBox();
-            this.chkCheckpoint = new System.Windows.Forms.CheckBox();
+            this.chkCheckpointCount = new System.Windows.Forms.CheckBox();
             this.chkStart = new System.Windows.Forms.CheckBox();
             this.numCheckpoint = new System.Windows.Forms.NumericUpDown();
             this.chkFinish = new System.Windows.Forms.CheckBox();
@@ -190,7 +190,7 @@
             this.grpGeneral.Controls.Add(this.lblCheckpoints);
             this.grpGeneral.Controls.Add(this.lblFinishes);
             this.grpGeneral.Controls.Add(this.btnAddCp);
-            this.grpGeneral.Controls.Add(this.checkBox1);
+            this.grpGeneral.Controls.Add(this.chkCheckpoint);
             this.grpGeneral.Controls.Add(this.btnAddFinish);
             this.grpGeneral.Controls.Add(this.cmbStartDirection);
             this.grpGeneral.Controls.Add(this.label3);
@@ -200,7 +200,7 @@
             this.grpGeneral.Controls.Add(this.txtAuthorTime);
             this.grpGeneral.Controls.Add(this.cmbEqAuthor);
             this.grpGeneral.Controls.Add(this.chkAuthorTime);
-            this.grpGeneral.Controls.Add(this.chkCheckpoint);
+            this.grpGeneral.Controls.Add(this.chkCheckpointCount);
             this.grpGeneral.Controls.Add(this.chkStart);
             this.grpGeneral.Controls.Add(this.numCheckpoint);
             this.grpGeneral.Controls.Add(this.chkFinish);
@@ -286,15 +286,15 @@
             this.btnAddCp.UseVisualStyleBackColor = true;
             this.btnAddCp.Click += new System.EventHandler(this.btnAddCp_Click);
             // 
-            // checkBox1
+            // chkCheckpoint
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 180);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(138, 19);
-            this.checkBox1.TabIndex = 17;
-            this.checkBox1.Text = "Identical checkpoints";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkCheckpoint.AutoSize = true;
+            this.chkCheckpoint.Location = new System.Drawing.Point(15, 180);
+            this.chkCheckpoint.Name = "chkCheckpoint";
+            this.chkCheckpoint.Size = new System.Drawing.Size(138, 19);
+            this.chkCheckpoint.TabIndex = 17;
+            this.chkCheckpoint.Text = "Identical checkpoints";
+            this.chkCheckpoint.UseVisualStyleBackColor = true;
             // 
             // btnAddFinish
             // 
@@ -380,15 +380,15 @@
             this.chkAuthorTime.Text = "Author time";
             this.chkAuthorTime.UseVisualStyleBackColor = true;
             // 
-            // chkCheckpoint
+            // chkCheckpointCount
             // 
-            this.chkCheckpoint.AutoSize = true;
-            this.chkCheckpoint.Location = new System.Drawing.Point(15, 32);
-            this.chkCheckpoint.Name = "chkCheckpoint";
-            this.chkCheckpoint.Size = new System.Drawing.Size(121, 19);
-            this.chkCheckpoint.TabIndex = 3;
-            this.chkCheckpoint.Text = "Checkpoint count";
-            this.chkCheckpoint.UseVisualStyleBackColor = true;
+            this.chkCheckpointCount.AutoSize = true;
+            this.chkCheckpointCount.Location = new System.Drawing.Point(15, 32);
+            this.chkCheckpointCount.Name = "chkCheckpointCount";
+            this.chkCheckpointCount.Size = new System.Drawing.Size(121, 19);
+            this.chkCheckpointCount.TabIndex = 3;
+            this.chkCheckpointCount.Text = "Checkpoint count";
+            this.chkCheckpointCount.UseVisualStyleBackColor = true;
             // 
             // chkStart
             // 
@@ -639,7 +639,7 @@
         private Button button1;
         private NumericUpDown numCheckpoint;
         private ComboBox cmbEqCheckpoint;
-        private CheckBox chkCheckpoint;
+        private CheckBox chkCheckpointCount;
         private CheckBox chkFinish;
         private CheckBox chkStart;
         private GroupBox grpGeneral;
@@ -672,7 +672,7 @@
         private ComboBox cmbStartDirection;
         private Button btnAddFinish;
         private Button btnAddCp;
-        private CheckBox checkBox1;
+        private CheckBox chkCheckpoint;
         private Label lblCheckpoints;
         private Label lblFinishes;
         private Label label2;

@@ -66,14 +66,19 @@ namespace GbxTest
                 numCheckpoint.Value = mapTemplate.CheckpointNum.Value;
         }
 
+        private BlockState CGameBlockToBlockState(CGameCtnBlock item)
+        {
+            return new BlockState(item.Coord, item.Direction);
+        }
+
         private TMMapRules? CreateRules()
         {
-            var cp = GetCheckpointState();
-            (CheckpointState? cpState, StatusMessage cpStatus) = cp;
-            if (cpState != null)
+            var cpCount = GetCheckpointCountState();
+            (CheckpointState? cpCountState, StatusMessage cpStatus) = cpCount;
+            if (cpCountState != null)
             {
-                var (cpStatusSuccess, cpStatusMessage) = cpStatus;
-                if (!cpStatusSuccess) { MessageBox.Show("Error", cpStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+                var (cpCountStatusSuccess, cpCountStatusMessage) = cpStatus;
+                if (!cpCountStatusSuccess) { MessageBox.Show("Error", cpCountStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
             }
 
             var author = GetAuthorTimeState();
@@ -92,7 +97,27 @@ namespace GbxTest
                 if (!startStatusSuccess) { MessageBox.Show("Error", startStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
             }
 
-            TMMapRules? rules = new(startState, null, null, cpState, null, authorState);
+            var finish = GetFinishState();
+            List<BlockState>? finishState = null;
+            (List<CGameCtnBlock>? finishList, StatusMessage finishMessage) = finish;
+            if(finishList != null)
+            {              
+                var (finishStatusSuccess, finishStatusMessage) = finishMessage;
+                if (!finishStatusSuccess) { MessageBox.Show("Error", finishStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+                finishState = finishList.ConvertAll(x => CGameBlockToBlockState(x));
+            }
+
+            var checkpoint = GetCheckpointState();
+            List<BlockState>? cpState = null;
+            (List<CGameCtnBlock>? cpList, StatusMessage cpMessage) = checkpoint;
+            if (cpList != null)
+            {
+                var (cpStatusSuccess, cpStatusMessage) = cpMessage;
+                if (!cpStatusSuccess) { MessageBox.Show("Error", cpStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+                cpState = cpList.ConvertAll(x => CGameBlockToBlockState(x));
+            }
+
+            TMMapRules? rules = new(startState, finishState, cpState, cpCountState, null, authorState);
             return rules;
         }
 
@@ -110,20 +135,34 @@ namespace GbxTest
             return state;
         }
 
-        private Tuple<List<BlockState>?, StatusMessage> GetFinishState()
+        private Tuple<List<CGameCtnBlock>?, StatusMessage> GetFinishState()
         {
-            Tuple<List<BlockState>?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
-            if(chkFinish.Checked)
+            Tuple<List<CGameCtnBlock>?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
+            if (chkFinish.Checked)
             {
-
+                List<CGameCtnBlock> tag = (List<CGameCtnBlock>)btnAddFinish.Tag;
+                if (tag != null)
+                    return new Tuple<List<CGameCtnBlock>?, StatusMessage>(tag, MESSAGE_GENERIC_SUCCESS);
             }
-            return null;
+            return state;
         }
 
-        private Tuple<CheckpointState?, StatusMessage> GetCheckpointState()
+        private Tuple<List<CGameCtnBlock>?, StatusMessage> GetCheckpointState()
+        {
+            Tuple<List<CGameCtnBlock>?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
+            if (chkCheckpoint.Checked)
+            {
+                List<CGameCtnBlock> tag = (List<CGameCtnBlock>)btnAddCp.Tag;
+                if (tag != null)
+                    return new Tuple<List<CGameCtnBlock>?, StatusMessage>(tag, MESSAGE_GENERIC_SUCCESS);
+            }
+            return state;
+        }
+
+        private Tuple<CheckpointState?, StatusMessage> GetCheckpointCountState()
         {
             Tuple<CheckpointState?, StatusMessage> cp = new(null, MESSAGE_DEFAULT);
-            if (chkCheckpoint.Checked)
+            if (chkCheckpointCount.Checked)
             {
                 EqMode eqMode = (EqMode)cmbEqCheckpoint.SelectedItem;
                 int cpCount = (int)numCheckpoint.Value;
@@ -194,7 +233,11 @@ namespace GbxTest
             };
             DialogResult result = frm.ShowDialog();
             List<Tuple<CGameCtnBlock?, BlockState>> finishList = frm.BlockList;
-            MessageBox.Show(result.ToString());
+            if(result == DialogResult.OK)
+            {
+                List<BlockState> updated = finishList.Select(x => x.Item2).ToList();
+                btnAddFinish.Tag = updated;
+            }
         }
 
         private void btnAddCp_Click(object sender, EventArgs e)
@@ -204,7 +247,13 @@ namespace GbxTest
             {
                 ShowInTaskbar = false
             };
-            frm.ShowDialog();
+            DialogResult result = frm.ShowDialog();
+            List<Tuple<CGameCtnBlock?, BlockState>> cpList = frm.BlockList;
+            if (result == DialogResult.OK)
+            {
+                List<BlockState> updated = cpList.Select(x => x.Item2).ToList();
+                btnAddFinish.Tag = updated;
+            }
         }
 
         private void numMultilap_ValueChanged(object sender, EventArgs e)
