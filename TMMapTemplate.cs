@@ -127,8 +127,27 @@ namespace GbxTest
 
             if (rules.ForceMultiLap != null)
             {
-                if (IsMultiLap == null || IsMultiLap == false) return false;
-                if (LapCount != rules.ForceMultiLap) return false;
+                var (rules_eq, rules_multilap) = rules.ForceMultiLap;
+                int lap = LapCount.HasValue ? LapCount.Value : 0;
+                if (rules_multilap > 0 && LapCount == 0) return false;
+                switch(rules_eq)
+                {
+                    case EqMode.LESS_THAN:
+                        if (lap >= rules_multilap) return false;
+                        break;
+                    case EqMode.LESS_OR_EQUAL:
+                        if (lap > rules_multilap) return false;
+                        break;
+                    case EqMode.EQUAL_TO:
+                        if (lap != rules_multilap) return false;
+                        break;
+                    case EqMode.GREATER_THAN:
+                        if (lap <= rules_multilap) return false;
+                        break;
+                    case EqMode.GREATER_OR_EQUAL:
+                        if (lap < rules_multilap) return false;
+                        break;
+                }
             }
 
             return true;

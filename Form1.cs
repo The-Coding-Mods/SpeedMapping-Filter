@@ -7,6 +7,7 @@ using AuthorState = System.Tuple<GbxTest.EqMode, TmEssentials.TimeInt32>;
 using CheckpointState = System.Tuple<GbxTest.EqMode, int>;
 using StatusMessage = System.Tuple<bool, string>;
 using BlockState = System.Tuple<GBX.NET.Int3, GBX.NET.Direction>;
+using MultilapState = System.Tuple<GbxTest.EqMode, int>;
 
 namespace GbxTest
 {
@@ -64,6 +65,11 @@ namespace GbxTest
 
             if(mapTemplate.CheckpointNum != null)
                 numCheckpoint.Value = mapTemplate.CheckpointNum.Value;
+
+            if(mapTemplate.IsMultiLap != null && mapTemplate.LapCount != null)
+            {
+                numMultilap.Value = mapTemplate.LapCount.Value;
+            }
         }
 
         private BlockState CGameBlockToBlockState(CGameCtnBlock item)
@@ -117,8 +123,28 @@ namespace GbxTest
                 cpState = cpList.ConvertAll(x => CGameBlockToBlockState(x));
             }
 
-            TMMapRules? rules = new(startState, finishState, cpState, cpCountState, null, authorState);
+            var multilap = GetMultilapState();
+            (MultilapState? multiState, StatusMessage multiMessage) = multilap;
+            if (multiState != null)
+            {
+                var (multiStatusSuccess, multiStatusMessage) = multiMessage;
+                if (!multiStatusSuccess) { MessageBox.Show("Error", multiStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
+            }
+
+            TMMapRules? rules = new(startState, finishState, cpState, cpCountState, multiState, authorState);
             return rules;
+        }
+
+        private Tuple<MultilapState?, StatusMessage> GetMultilapState()
+        {
+            Tuple<MultilapState?, StatusMessage> state = new(null, MESSAGE_DEFAULT);
+            if (chkMultilap.Checked)
+            {
+                EqMode eqMode = (EqMode)cmbEqMultilap.SelectedItem;
+                int lapCount = (int)numMultilap.Value;
+                state = new Tuple<MultilapState?, StatusMessage>(new MultilapState(eqMode, lapCount), MESSAGE_GENERIC_SUCCESS);
+            }
+            return state;
         }
 
         private Tuple<BlockState?, StatusMessage> GetStartState()
