@@ -16,4 +16,15 @@
         GREATER_THAN,
         GREATER_OR_EQUAL
     }
+
+    public class TMDefinitions
+    {
+        public static readonly string[] PLATFORM_STARTS = { "RoadTechStart", "RoadDirtStart", "RoadBumpStart", "RoadIceStart",
+                                                           "PlatformTechStart", "PlatformDirtStart", "PlatformIceStart",
+                                                           "PlatformGrassStart", "PlatformPlasticStart", "RoadWaterStart"};
+
+        public static readonly string[] PLATFORM_TYPES = { "RoadTech", "RoadDirt", "RoadBump", "RoadIce",
+                                                           "PlatformTech", "PlatformDirt", "PlatformIce",
+                                                           "PlatformGrass", "PlatformPlastic", "RoadWater"};
+    }
 }

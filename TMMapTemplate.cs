@@ -11,12 +11,18 @@ namespace GbxTest
 {
     public class TMMapTemplate
     {
+        public readonly bool ValidTemplate = true;
+        private bool MustHaveCheckpoint = false;
         public TMMapTemplate(CGameCtnChallenge _challenge)
         {
             MapName = _challenge.MapName;
-            Start = ParseBlocks(_challenge, BlockMode.START); //vallz: needs a little more work, since some blocks inconveniently have "start" in them
+            Start = ParseBlocks(_challenge, BlockMode.START);
+            if (Start == null || Start.Count <= 0) ValidTemplate = false;
             Finish = ParseBlocks(_challenge, BlockMode.FINISH);
+            if (Finish == null || Finish.Count <= 0) ValidTemplate = false;
+            if (Finish != null && Finish.Where(block => block.Name.Contains("Multilap")).ToList().Count > 0) MustHaveCheckpoint = true;
             Checkpoints = ParseBlocks(_challenge, BlockMode.CHECKPOINT);
+            if (Checkpoints == null || (Checkpoints.Count <= 0 && MustHaveCheckpoint)) ValidTemplate = false;
             CheckpointNum = _challenge.NbCheckpoints;
             IsMultiLap = _challenge.TMObjective_IsLapRace;
             LapCount = IsMultiLap.GetValueOrDefault() ? _challenge.TMObjective_NbLaps : 0;
@@ -31,10 +37,28 @@ namespace GbxTest
         public int? LapCount { get; set; }
         public TimeInt32? AuthorTime { get; set; }
 
+
         private static List<CGameCtnBlock>? ParseBlocks(CGameCtnChallenge? _challenge, BlockMode mode)
         {
-            var y = _challenge?.Blocks?.Where(b => b.Name.ToLower().Contains(mode.ToString().ToLower()));
-            return y?.ToList();
+            switch (mode)
+            {
+                case BlockMode.START: //vallzeh: this requires a special procedure
+                    var start = _challenge?.Blocks?.Where(block => TMDefinitions.PLATFORM_STARTS.Contains(block.Name)).ToList();
+                    if (start == null || start.Count == 0)
+                    {
+                        var multilap = _challenge?.Blocks?.Where(block => block.Name.Contains("Multilap")).ToList();
+                        if (multilap != null)
+                            return multilap.Count == 1 ? multilap : null; //vallzeh: since we need to treat multilap as a start, there can't be multiple.
+                    }
+                    else
+                        return start;
+                    break;
+                case BlockMode.FINISH:
+                    return _challenge?.Blocks?.Where(block => block.Name.Contains("Finish") || block.Name.Contains("Multilap")).ToList(); 
+                default:
+                    return _challenge?.Blocks?.Where(block => block.Name.ToLower().Contains(mode.ToString().ToLower())).ToList();
+            }
+            return null;
         }
 
         public bool Obeys(TMMapRules? rules) // M8r1x: Free blocks have coords <-1,-1,-1>
@@ -113,7 +137,7 @@ namespace GbxTest
                     case EqMode.LESS_OR_EQUAL:
                         if (rules_author >= AuthorTime) return false;
                         break;
-                    case EqMode.EQUAL_TO: //Don't see a use case for this but 
+                    case EqMode.EQUAL_TO: //Don't see a use case for this but ¯\_(ツ)_/¯
                         if (rules_author != AuthorTime) return false;
                         break;
                     case EqMode.GREATER_THAN:
