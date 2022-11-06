@@ -127,9 +127,5 @@ namespace GbxTest
             InsertBlock(new(converted, dir));
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

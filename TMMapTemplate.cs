@@ -27,6 +27,7 @@ namespace GbxTest
             IsMultiLap = _challenge.TMObjective_IsLapRace;
             LapCount = IsMultiLap.GetValueOrDefault() ? _challenge.TMObjective_NbLaps : 0;
             AuthorTime = _challenge.TMObjective_AuthorTime;
+            IncludedPlatformTypes = GetPlatformTypes(_challenge);
         }
         public string? MapName { get; set; }
         public List<CGameCtnBlock>? Start { get; set; }
@@ -36,35 +37,63 @@ namespace GbxTest
         public bool? IsMultiLap { get; set; }
         public int? LapCount { get; set; }
         public TimeInt32? AuthorTime { get; set; }
+        public List<string>? IncludedPlatformTypes { get; set; } 
 
 
         private static List<CGameCtnBlock>? ParseBlocks(CGameCtnChallenge? _challenge, BlockMode mode)
         {
             switch (mode)
             {
-                case BlockMode.START: //vallzeh: this requires a special procedure
+                case BlockMode.START:
                     var start = _challenge?.Blocks?.Where(block => TMDefinitions.PLATFORM_STARTS.Contains(block.Name)).ToList();
-                    if (start == null || start.Count == 0)
+                    if (start == null || start.Count == 0) 
                     {
                         var multilap = _challenge?.Blocks?.Where(block => block.Name.Contains("Multilap")).ToList();
-                        if (multilap != null)
-                            return multilap.Count == 1 ? multilap : null; //vallzeh: since we need to treat multilap as a start, there can't be multiple.
+                        return multilap != null && multilap.Count == 1 ? multilap : null; 
                     }
-                    else
-                        return start;
-                    break;
+                    return start;
+
                 case BlockMode.FINISH:
                     return _challenge?.Blocks?.Where(block => block.Name.Contains("Finish") || block.Name.Contains("Multilap")).ToList(); 
                 default:
                     return _challenge?.Blocks?.Where(block => block.Name.ToLower().Contains(mode.ToString().ToLower())).ToList();
             }
-            return null;
+        }
+
+        private static List<string> GetPlatformTypes(CGameCtnChallenge? _challenge)
+        {
+            List<string> types = new();
+            for(int i = 0; i < _challenge?.Blocks?.Count; i++)
+            {
+                var block = _challenge.Blocks[i];
+                if (block == null) continue;
+                foreach (var type in TMDefinitions.PLATFORM_TYPES)
+                {
+                    if(block.Name.Contains(type) && !types.Contains(type))
+                        types.Add(type);
+                }
+            }
+            return types;
+        }
+
+        private bool IncludesBlockType(List<string> disallowedTypes)
+        {
+            foreach(var disallowedType in disallowedTypes)
+            {
+                if (IncludedPlatformTypes == null) return false;
+                if (IncludedPlatformTypes.Contains(disallowedType))
+                    return true;
+            }
+            return false;
         }
 
         public bool Obeys(TMMapRules? rules) // M8r1x: Free blocks have coords <-1,-1,-1>
         {
             if (rules == null)
                 return true;
+
+            if (rules.DisallowedBlockTypes != null)
+                if (IncludesBlockType(rules.DisallowedBlockTypes)) return false;
 
             if (rules.ForceStart != null)
             {
@@ -152,7 +181,7 @@ namespace GbxTest
             if (rules.ForceMultiLap != null)
             {
                 var (rules_eq, rules_multilap) = rules.ForceMultiLap;
-                int lap = LapCount.HasValue ? LapCount.Value : 0;
+                int lap = LapCount ?? 0;
                 if (rules_multilap > 0 && LapCount == 0) return false;
                 switch(rules_eq)
                 {

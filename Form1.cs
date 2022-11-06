@@ -8,6 +8,8 @@ using CheckpointState = System.Tuple<GbxTest.EqMode, int>;
 using StatusMessage = System.Tuple<bool, string>;
 using BlockState = System.Tuple<GBX.NET.Int3, GBX.NET.Direction>;
 using MultilapState = System.Tuple<GbxTest.EqMode, int>;
+using System.Windows.Forms;
+using System.IO;
 
 namespace GbxTest
 {
@@ -131,7 +133,9 @@ namespace GbxTest
                 if (!multiStatusSuccess) { MessageBox.Show("Error", multiStatusMessage, MessageBoxButtons.OK, MessageBoxIcon.Error); return null; }
             }
 
-            TMMapRules? rules = new(startState, finishState, cpState, cpCountState, multiState, authorState);
+            var disallowedBlocks = GetDisallowedBlockState();
+
+            TMMapRules? rules = new(startState, finishState, cpState, cpCountState, multiState, authorState, disallowedBlocks);
             return rules;
         }
 
@@ -145,6 +149,25 @@ namespace GbxTest
                 state = new Tuple<MultilapState?, StatusMessage>(new MultilapState(eqMode, lapCount), MESSAGE_GENERIC_SUCCESS);
             }
             return state;
+        }
+
+        private List<string>? GetDisallowedBlockState()
+        {
+            List<string> states = new();
+
+            foreach(Control isCb in grpBlock.Controls)
+            {
+                if (isCb is CheckBox)
+                {
+                    CheckBox cb = (CheckBox)isCb;
+                    var cbTag = cb.Tag;
+                    if(!states.Contains((string)cbTag) && cb.Checked)
+                        states.Add((string)cbTag);
+
+                }
+            }
+                       
+            return states.Count > 0 ? states : null;
         }
 
         private Tuple<BlockState?, StatusMessage> GetStartState()
@@ -216,6 +239,45 @@ namespace GbxTest
             return authorTime;
         }
 
+        private void FilterMaps(TMMapRules? rules, string path, bool moveToAnotherFolder = false)
+        {
+            var files = GetMapGbxFiles(path);
+            foreach(var file in files)
+            {
+
+                CGameCtnChallenge rawMapInfo = GameBox.ParseNode<CGameCtnChallenge>(file);
+                TMMapTemplate mapTemplate = new(rawMapInfo);
+                if(!mapTemplate.Obeys(rules))
+                {
+                    MessageBox.Show("Map: " + file + " would be deleted");
+                }
+            }
+        }
+
+        private static List<string> GetMapGbxFiles(string folderPath)
+        {
+            List<string> files = new();
+            files = Directory.GetFiles(folderPath).Where(file => file.ToLower().EndsWith(".map.gbx")).ToList();
+            return files;
+        }
+
+        private static bool VerifyFolder(string path)
+        {
+            return GetMapGbxFiles(path).Any();
+        }
+
+        private static string? GetMapFolder()
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "Find a folder with .map.gbx files";
+            folderBrowserDialog.ShowNewFolderButton = true;
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+                if(VerifyFolder(folderBrowserDialog.SelectedPath))
+                    return folderBrowserDialog.SelectedPath;
+            return null;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -224,18 +286,14 @@ namespace GbxTest
         private void button1_Click(object sender, EventArgs e)
         {
             TMMapRules? rule = CreateRules();
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Please select a .gbx file";
-            openFileDialog.Filter = "Gbx files (*.gbx)|*.gbx";
-            string path = "";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-                path = openFileDialog.FileName;
+            string? mapFolder = GetMapFolder();
+            if(mapFolder == null)
+            {
+                MessageBox.Show("Invalid map folder");
+                return;
+            }
 
-            var map = GameBox.ParseNode<CGameCtnChallenge>(path);
-
-            TMMapTemplate template = new(map);
-
-            template.Obeys(rule);
+            FilterMaps(rule, mapFolder);
         }
 
         private void btnTemplate_Click(object sender, EventArgs e)
@@ -290,6 +348,31 @@ namespace GbxTest
         private void numCheckpoint_ValueChanged(object sender, EventArgs e)
         {
             lblCheckpoint.Text = numCheckpoint.Value == 1 ? "checkpoint" : "checkpoints";
+        }
+
+        private void cmbFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbFiles_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "Find a folder with .map.gbx files";
+            folderBrowserDialog.ShowNewFolderButton = true;
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string path = folderBrowserDialog.SelectedPath;
+                string[] fileEntries = Directory.GetFiles(path);
+                foreach (string fileName in fileEntries)
+                    MessageBox.Show(fileName);
+            }
+        }
+
+        private void btnVerify_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -24,7 +24,7 @@
                                                            "PlatformGrassStart", "PlatformPlasticStart", "RoadWaterStart"};
 
         public static readonly string[] PLATFORM_TYPES = { "RoadTech", "RoadDirt", "RoadBump", "RoadIce",
-                                                           "PlatformTech", "PlatformDirt", "PlatformIce",
+                                                           "PlatformTech", "PlatformDirt", "PlatformWater", "PlatformIce",
                                                            "PlatformGrass", "PlatformPlastic", "RoadWater"};
     }
 }

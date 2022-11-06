@@ -32,9 +32,9 @@
             this.grpFilter = new System.Windows.Forms.GroupBox();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.btnVerify = new System.Windows.Forms.Button();
+            this.btnFilter = new System.Windows.Forms.Button();
+            this.cmbFiles = new System.Windows.Forms.ComboBox();
             this.chkIgnoreTemplate = new System.Windows.Forms.CheckBox();
             this.btnTemplate = new System.Windows.Forms.Button();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
@@ -62,16 +62,15 @@
             this.cmbEqCheckpoint = new System.Windows.Forms.ComboBox();
             this.grpBlock = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.chkBobsleigh = new System.Windows.Forms.CheckBox();
             this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.chkSausage = new System.Windows.Forms.CheckBox();
+            this.chkPlatformPlastic = new System.Windows.Forms.CheckBox();
+            this.chkPlatformIce = new System.Windows.Forms.CheckBox();
+            this.chkPlatformDirt = new System.Windows.Forms.CheckBox();
+            this.chkDirtTech = new System.Windows.Forms.CheckBox();
+            this.chkRoadTech = new System.Windows.Forms.CheckBox();
+            this.chkPlatformTech = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,9 +102,9 @@
             // 
             this.grpFilter.Controls.Add(this.checkBox15);
             this.grpFilter.Controls.Add(this.label4);
-            this.grpFilter.Controls.Add(this.button3);
-            this.grpFilter.Controls.Add(this.button1);
-            this.grpFilter.Controls.Add(this.comboBox3);
+            this.grpFilter.Controls.Add(this.btnVerify);
+            this.grpFilter.Controls.Add(this.btnFilter);
+            this.grpFilter.Controls.Add(this.cmbFiles);
             this.grpFilter.Enabled = false;
             this.grpFilter.Location = new System.Drawing.Point(26, 505);
             this.grpFilter.Name = "grpFilter";
@@ -133,32 +132,35 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Map folder:";
             // 
-            // button3
+            // btnVerify
             // 
-            this.button3.Location = new System.Drawing.Point(332, 25);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 28);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Verify";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnVerify.Location = new System.Drawing.Point(332, 25);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(97, 28);
+            this.btnVerify.TabIndex = 4;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
-            // button1
+            // btnFilter
             // 
-            this.button1.Location = new System.Drawing.Point(332, 70);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 28);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Filter";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnFilter.Location = new System.Drawing.Point(332, 70);
+            this.btnFilter.Name = "btnFilter";
+            this.btnFilter.Size = new System.Drawing.Size(97, 28);
+            this.btnFilter.TabIndex = 0;
+            this.btnFilter.Text = "Filter";
+            this.btnFilter.UseVisualStyleBackColor = true;
+            this.btnFilter.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboBox3
+            // cmbFiles
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(94, 29);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(229, 23);
-            this.comboBox3.TabIndex = 3;
+            this.cmbFiles.FormattingEnabled = true;
+            this.cmbFiles.Location = new System.Drawing.Point(94, 29);
+            this.cmbFiles.Name = "cmbFiles";
+            this.cmbFiles.Size = new System.Drawing.Size(229, 23);
+            this.cmbFiles.TabIndex = 3;
+            this.cmbFiles.SelectedIndexChanged += new System.EventHandler(this.cmbFiles_SelectedIndexChanged);
+            this.cmbFiles.Click += new System.EventHandler(this.cmbFiles_Click);
             // 
             // chkIgnoreTemplate
             // 
@@ -441,16 +443,15 @@
             // grpBlock
             // 
             this.grpBlock.Controls.Add(this.label2);
-            this.grpBlock.Controls.Add(this.checkBox14);
-            this.grpBlock.Controls.Add(this.checkBox13);
+            this.grpBlock.Controls.Add(this.chkBobsleigh);
             this.grpBlock.Controls.Add(this.checkBox12);
-            this.grpBlock.Controls.Add(this.checkBox11);
-            this.grpBlock.Controls.Add(this.checkBox10);
-            this.grpBlock.Controls.Add(this.checkBox9);
-            this.grpBlock.Controls.Add(this.checkBox8);
-            this.grpBlock.Controls.Add(this.checkBox7);
-            this.grpBlock.Controls.Add(this.checkBox6);
-            this.grpBlock.Controls.Add(this.checkBox5);
+            this.grpBlock.Controls.Add(this.chkSausage);
+            this.grpBlock.Controls.Add(this.chkPlatformPlastic);
+            this.grpBlock.Controls.Add(this.chkPlatformIce);
+            this.grpBlock.Controls.Add(this.chkPlatformDirt);
+            this.grpBlock.Controls.Add(this.chkDirtTech);
+            this.grpBlock.Controls.Add(this.chkRoadTech);
+            this.grpBlock.Controls.Add(this.chkPlatformTech);
             this.grpBlock.Location = new System.Drawing.Point(24, 325);
             this.grpBlock.Name = "grpBlock";
             this.grpBlock.Size = new System.Drawing.Size(444, 164);
@@ -468,25 +469,16 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "Warning: scenery will be affected";
             // 
-            // checkBox14
+            // chkBobsleigh
             // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(122, 128);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(68, 19);
-            this.checkBox14.TabIndex = 9;
-            this.checkBox14.Text = "Custom";
-            this.checkBox14.UseVisualStyleBackColor = true;
-            // 
-            // checkBox13
-            // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(15, 80);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(78, 19);
-            this.checkBox13.TabIndex = 8;
-            this.checkBox13.Text = "Bobsleigh";
-            this.checkBox13.UseVisualStyleBackColor = true;
+            this.chkBobsleigh.AutoSize = true;
+            this.chkBobsleigh.Location = new System.Drawing.Point(15, 80);
+            this.chkBobsleigh.Name = "chkBobsleigh";
+            this.chkBobsleigh.Size = new System.Drawing.Size(78, 19);
+            this.chkBobsleigh.TabIndex = 8;
+            this.chkBobsleigh.Tag = "RoadIce";
+            this.chkBobsleigh.Text = "Bobsleigh";
+            this.chkBobsleigh.UseVisualStyleBackColor = true;
             // 
             // checkBox12
             // 
@@ -495,78 +487,86 @@
             this.checkBox12.Name = "checkBox12";
             this.checkBox12.Size = new System.Drawing.Size(57, 19);
             this.checkBox12.TabIndex = 7;
+            this.checkBox12.Tag = "Water";
             this.checkBox12.Text = "Water";
             this.checkBox12.UseVisualStyleBackColor = true;
             // 
-            // checkBox11
+            // chkSausage
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(334, 80);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(69, 19);
-            this.checkBox11.TabIndex = 6;
-            this.checkBox11.Text = "Sausage";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            this.chkSausage.AutoSize = true;
+            this.chkSausage.Location = new System.Drawing.Point(334, 80);
+            this.chkSausage.Name = "chkSausage";
+            this.chkSausage.Size = new System.Drawing.Size(69, 19);
+            this.chkSausage.TabIndex = 6;
+            this.chkSausage.Tag = "RoadBump";
+            this.chkSausage.Text = "Sausage";
+            this.chkSausage.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
+            // chkPlatformPlastic
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(213, 80);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(60, 19);
-            this.checkBox10.TabIndex = 5;
-            this.checkBox10.Text = "Plastic";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.chkPlatformPlastic.AutoSize = true;
+            this.chkPlatformPlastic.Location = new System.Drawing.Point(213, 80);
+            this.chkPlatformPlastic.Name = "chkPlatformPlastic";
+            this.chkPlatformPlastic.Size = new System.Drawing.Size(60, 19);
+            this.chkPlatformPlastic.TabIndex = 5;
+            this.chkPlatformPlastic.Tag = "PlatformPlastic";
+            this.chkPlatformPlastic.Text = "Plastic";
+            this.chkPlatformPlastic.UseVisualStyleBackColor = true;
             // 
-            // checkBox9
+            // chkPlatformIce
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(122, 80);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(41, 19);
-            this.checkBox9.TabIndex = 4;
-            this.checkBox9.Text = "Ice";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.chkPlatformIce.AutoSize = true;
+            this.chkPlatformIce.Location = new System.Drawing.Point(122, 80);
+            this.chkPlatformIce.Name = "chkPlatformIce";
+            this.chkPlatformIce.Size = new System.Drawing.Size(41, 19);
+            this.chkPlatformIce.TabIndex = 4;
+            this.chkPlatformIce.Tag = "PlatformIce";
+            this.chkPlatformIce.Text = "Ice";
+            this.chkPlatformIce.UseVisualStyleBackColor = true;
             // 
-            // checkBox8
+            // chkPlatformDirt
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(122, 32);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(45, 19);
-            this.checkBox8.TabIndex = 3;
-            this.checkBox8.Text = "Dirt";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.chkPlatformDirt.AutoSize = true;
+            this.chkPlatformDirt.Location = new System.Drawing.Point(122, 32);
+            this.chkPlatformDirt.Name = "chkPlatformDirt";
+            this.chkPlatformDirt.Size = new System.Drawing.Size(45, 19);
+            this.chkPlatformDirt.TabIndex = 3;
+            this.chkPlatformDirt.Tag = "PlatformDirt";
+            this.chkPlatformDirt.Text = "Dirt";
+            this.chkPlatformDirt.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // chkDirtTech
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(334, 32);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(72, 19);
-            this.checkBox7.TabIndex = 2;
-            this.checkBox7.Text = "Dirt Tech";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.chkDirtTech.AutoSize = true;
+            this.chkDirtTech.Location = new System.Drawing.Point(334, 32);
+            this.chkDirtTech.Name = "chkDirtTech";
+            this.chkDirtTech.Size = new System.Drawing.Size(72, 19);
+            this.chkDirtTech.TabIndex = 2;
+            this.chkDirtTech.Tag = "RoadDirt";
+            this.chkDirtTech.Text = "Dirt Tech";
+            this.chkDirtTech.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // chkRoadTech
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(213, 32);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(80, 19);
-            this.checkBox6.TabIndex = 1;
-            this.checkBox6.Text = "Road Tech";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.chkRoadTech.AutoSize = true;
+            this.chkRoadTech.Location = new System.Drawing.Point(213, 32);
+            this.chkRoadTech.Name = "chkRoadTech";
+            this.chkRoadTech.Size = new System.Drawing.Size(80, 19);
+            this.chkRoadTech.TabIndex = 1;
+            this.chkRoadTech.Tag = "RoadTech";
+            this.chkRoadTech.Text = "Road Tech";
+            this.chkRoadTech.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // chkPlatformTech
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(15, 32);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(72, 19);
-            this.checkBox5.TabIndex = 0;
-            this.checkBox5.Text = "Platform";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.chkPlatformTech.AutoSize = true;
+            this.chkPlatformTech.Location = new System.Drawing.Point(15, 32);
+            this.chkPlatformTech.Name = "chkPlatformTech";
+            this.chkPlatformTech.Size = new System.Drawing.Size(72, 19);
+            this.chkPlatformTech.TabIndex = 0;
+            this.chkPlatformTech.Tag = "PlatformTech";
+            this.chkPlatformTech.Text = "Platform";
+            this.chkPlatformTech.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -636,7 +636,7 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
-        private Button button1;
+        private Button btnFilter;
         private NumericUpDown numCheckpoint;
         private ComboBox cmbEqCheckpoint;
         private CheckBox chkCheckpointCount;
@@ -650,19 +650,18 @@
         private ComboBox cmbEqAuthor;
         private CheckBox chkAuthorTime;
         private GroupBox grpBlock;
-        private CheckBox checkBox14;
-        private CheckBox checkBox13;
+        private CheckBox chkBobsleigh;
         private CheckBox checkBox12;
-        private CheckBox checkBox11;
-        private CheckBox checkBox10;
-        private CheckBox checkBox9;
-        private CheckBox checkBox8;
-        private CheckBox checkBox7;
-        private CheckBox checkBox6;
-        private CheckBox checkBox5;
+        private CheckBox chkSausage;
+        private CheckBox chkPlatformPlastic;
+        private CheckBox chkPlatformIce;
+        private CheckBox chkPlatformDirt;
+        private CheckBox chkDirtTech;
+        private CheckBox chkRoadTech;
+        private CheckBox chkPlatformTech;
         private Label label4;
-        private ComboBox comboBox3;
-        private Button button3;
+        private ComboBox cmbFiles;
+        private Button btnVerify;
         private ToolStripMenuItem helpToolStripMenuItem;
         private CheckBox checkBox15;
         private CheckBox chkIgnoreTemplate;
